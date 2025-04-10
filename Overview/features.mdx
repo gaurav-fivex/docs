@@ -1,0 +1,97 @@
+---
+title: Platform Features
+---
+
+<Frame>
+![feature](https://docs.5x.co/assets/images/features%20(5)-96176b23505d3de5789439cda4ca9b42.png)
+</Frame>
+
+## Ingestion
+
+5X [Ingestion](https://docs.5x.co/Ingestion/using-ingestion) is a unified data ingestion experience used to build data pipelines and replicate/migrate data using pre-built connectors.
+
+- Supports [500+ connectors](https://www.5x.co/data-sources?utm_campaign=Day1+Summit&_hsenc=p2ANqtz--oOwokEUzy0twCoEkBcFwndMxqvwRTrYEt48qGdwyNJTTGQzGsQXyJOuK79hc-xns6Tnuko2UWjiI9bH1ib-2xzVmL2Q&_hsmi=306344238&utm_content=306344238&utm_source=hs_automation&utm_medium=email) to ingest data from data stores, files and other sources.
+- Connects and authenticates sources using [Ingestion connections](https://docs.5x.co/Settings/Settings/App%20connections.md#ingestion) to maintain data pipeline security across production environments.
+- Use [connectors](https://docs.5x.co/Ingestion/Connectors) to data to the destination.
+- Use [Syncs](https://docs.5x.co/Ingestion/Connectors#sync-now) to migrate/replicate data for a connector according to sync frequencies.
+- Advanced capabilities like [historical data re-sync](https://docs.5x.co/Ingestion/Connectors#connectors-actions), and control schema using table and column-based actions.
+
+<Frame>
+![infest1](https://docs.5x.co/assets/images/ingest1-147239c360c0b276cfce7790bd7a9eb0.png)
+</Frame>
+## IDE
+
+The 5X [IDE (integrated development environment)](https://docs.5x.co/IDE/ide-about) is a code editor built for data teams. It lets you access and model warehouse data to define centrally for your data platform. You can interact with your data to facilitate jobs for ingestion and orchestration later. The IDE incorporates warehouse capabilities directly within it to streamline data workflows and efficiently build, manage, and scale data-intensive applications.
+
+Key features:
+
+1. **Streamlined workspace**: Streamline SQL queries, dbt and Python repositories using multiple worksheets in your workspace. You can switch between the connected warehouse and update warehouse roles as required.
+2. **Explorer**:
+	- Supports schema explorer to navigate and work on the database schemas connected to your development workspace.
+	- The Results panel lets you query data simultaneously with run history for data analysis.
+	- The code editor supports debugging, syntax highlighting, autocomplete suggestions, snippets, code refactoring, and version control with Git.
+3. **IDE support**:
+	- [Run SQL queries](https://docs.5x.co/IDE/Editors/sql.md) to update and manage warehouse data.
+	- [Model warehouse data](https://docs.5x.co/IDE/Editors/dbt/) using dbt (data build tool) for downstream orchestration needs with version control management.
+4. **Develop at the user level**: 5X supports development at the user level using development credentials. It enables workspace users to connect to their warehouse for data queries and manage their development GitHub repository before deploying orchestration jobs in production.
+
+## Orchestration
+
+[Orchestration](https://docs.5x.co/Orchestration/) lets you create, schedule, and manage complex data pipelines (DAGs) to automate workflows and ensure timely data processing and delivery.
+
+- Create ingestion, dbt and custom code (python) blocks by configuring jobs.
+- Use the Orchestrator to schedule triggers for blocks and deploy them in production.
+- Supported logs for every job run.
+
+<Frame>
+![orchestration1](https://docs.5x.co/assets/images/orc1-1d4b6cbc5f6fbee459d42ad93967e103.png)
+</Frame>
+
+## Visualization
+
+The 5X [**BI (Business Intelligence)**](https://docs.5x.co/Business%20Intelligence/bi) capability lets you create modern, enterprise-ready data visualizations using a no-code, integrated interface. BI supports real-time and end-to-end visual experience using dashboards by exposing data connected to an array of charts. You can integrate with a variety of data sources connected to your warehouse. 5X provides Apache Superset to enable enterprise-ready business intelligence capabilities.
+
+- A no-code, integrated interface with [dashboards](https://docs.5x.co/Business%20Intelligence/dashboard), [charts](https://docs.5x.co/Business%20Intelligence/chart) and [datasets](https://docs.5x.co/Business%20Intelligence/dataset).
+- Data analysis using **SQL editor** equipped for advanced queries.
+- Supports dataset integration with all major SQL databases.
+- Supports **log-based** and **row-level security** options.
+- Seamless support for **custom styling**, **annotation layers**, and **tags** to visualizations.
+
+## Semantic Layer
+
+The 5X [Semantic Layer](https://docs.5x.co/SemanticLayer/semanticlayer-overview) transforms complex data structures into intuitive business metrics that everyone in your organization can understand and use. It creates a business-friendly view of your data while maintaining a single source of truth across all analytics tools and AI applications.
+
+Key features:
+
+- Define metrics once, use everywhere with centralized data governance
+- Self-service access to trusted data with consistent metrics across tools
+- Transform raw data into AI-ready datasets with business context
+- Seamless integration with modeling, BI, and data applications
+- Support for development mode and version control
+- Interactive query playground for data validation and exploration
+
+## Data Apps
+
+[Data Apps](https://docs.5x.co/DataApps) allows you to create, manage, and deploy Streamlit-based interactive data applications directly within the 5X platform. Build and deploy data apps with minimal configuration using the integrated development environment.
+
+Key capabilities:
+
+- Create interactive data applications using Streamlit
+- Deploy apps directly from the IDE with minimal setup
+- Support for multiple container sizes and environments
+- Version control and branch management
+- Real-time preview and development mode
+- Common use cases include:
+	- Dashboard prototyping
+	- Data quality monitoring
+	- Machine learning applications
+	- Interactive data exploration
+	- Process automation
+	- Advanced analytics tools
+
+## Workspace management
+
+- [Team](https://docs.5x.co/Settings/Team/): Manage user and warehouse access across your workspace.
+- [Utilization](https://docs.5x.co/Settings/utilization.md): Real-time utilization analytics of your workspace.
+- [Architecture](https://docs.5x.co/Settings/architecture.md): The current state of your data platform.
+- **Envrionment settings**: Manage [development credentials](https://docs.5x.co/Settings/Settings/Credentials.md) and [production connections](https://docs.5x.co/Settings/Settings/App%20connections.md) across your workspace.

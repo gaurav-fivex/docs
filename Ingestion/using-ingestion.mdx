@@ -1,0 +1,74 @@
+---
+title: "Ingestion Guide"
+description: "A concise guide to help you start moving data into your warehouse using 5X's Ingestion capability."
+---
+
+## Before You Begin
+
+- Ingestion [App connection](https://docs.5x.co/Settings/Connections)
+- Source system access credentials
+- Admin or Developer role permissions
+
+<Frame>
+<video
+  src="https://docs.5x.co/assets/medias/connector1-727bec18f7f93d760c3e41a9ddf206b0.mp4"
+  controls
+>
+</video>
+</Frame>
+
+## Set Up Your First Data Pipeline
+
+<Steps>
+  <Step>
+    Navigate to **Ingestion**
+  </Step>
+  <Step>
+    Click **\+ Add Connector**
+  </Step>
+  <Step>
+    Select your data source (500+ available)
+  </Step>
+  <Step>
+    Configure destination settings
+  </Step>
+  <Step>
+    Run initial sync
+  </Step>
+</Steps>
+
+## Ingestion Dashboard Guide
+
+<Frame>
+  ![dashboard overview](https://docs.5x.co/assets/images/ingest1-147239c360c0b276cfce7790bd7a9eb0.png)
+</Frame>
+
+### Monitor Your Data Pipelines
+
+View all your connectors with key information:
+
+- Sync status (Active, Paused, Syncing, etc.)
+- Last successful sync
+- Next scheduled sync
+- Source and destination details
+
+### Quick Actions
+
+Common tasks you can perform by clicking on the 3 dot icon on each connector.
+
+- **Sync now** to run an instant sync irrespective of the connector’s sync frequency.
+- **Edit Setup** to update the connector configuration and its setup.
+- **Historical re-sync** is a full data re-sync operation where Ingestion overwrites the data in your destination with the latest data from your source. Click Historical re-sync to confirm.
+- **Start/pause** syncs to change the status of connectors
+- **Update sync frequency** (1 minute to custom periods) to change the sync frequency of connector
+- **Filter and sort** connectors to view the connectors well.
+
+### Understanding Connector States
+
+| State | What It Means | What To Do |
+| --- | --- | --- |
+| Active | Successfully syncing data | Monitor as needed |
+| Syncing | Currently moving data | Wait for completion |
+| Paused | Sync schedule stopped | Resume if needed |
+| Broken | Connection issue detected | Check configuration |
+| Incomplete | Setup needs finishing | Complete setup |

@@ -1,102 +1,111 @@
 {
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
-  "name": "Mint Starter Kit",
+  "name": "5X",
   "colors": {
-    "primary": "#16A34A",
-    "light": "#07C983",
-    "dark": "#15803D"
+    "primary": "#4B36CD",
+    "light": "#4B36CD",
+    "dark": "#4B36CD"
   },
-  "favicon": "/favicon.svg",
+  "favicon": "/favicon.png",
+  "background": {
+    "decoration": "gradient"
+  },
+  "styling": {
+    "codeblocks": "dark"
+  },
+  "fonts":{
+    "heading": {
+      "family": "Open Sans"
+    },
+    "body": {
+      "family": "Inter"
+    }
+  },
+  "appearance": {
+    "default": "dark"
+  },
   "navigation": {
     "tabs": [
       {
-        "tab": "Guides",
+        "tab": "Documentation",
         "groups": [
           {
-            "group": "Get Started",
-            "pages": [
-              "introduction",
-              "quickstart",
-              "development"
-            ]
-          },
-          {
-            "group": "Essentials",
-            "pages": [
-              "essentials/markdown",
-              "essentials/code",
-              "essentials/images",
-              "essentials/settings",
-              "essentials/navigation",
-              "essentials/reusable-snippets"
+            "group": " ",
+            "pages":[
+              "home",
+              {
+                "group": "Overview",
+                "pages": [
+                  "Overview/About",
+                  "Overview/features",
+                  "Overview/get-started",
+                  "Overview/trial"
+                ]
+              },
+              {
+                "group": "Ingestion",
+                "pages": [
+                  "Ingestion/using-ingestion"
+                ]
+              },
+              "architecture"
             ]
           }
         ]
       },
       {
-        "tab": "API Reference",
-        "groups": [
-          {
-            "group": "API Documentation",
-            "pages": [
-              "api-reference/introduction"
-            ]
-          },
-          {
-            "group": "Endpoint Examples",
-            "pages": [
-              "api-reference/endpoint/get",
-              "api-reference/endpoint/create",
-              "api-reference/endpoint/delete",
-              "api-reference/endpoint/webhook"
-            ]
-          }
+        "tab": "FAQ",
+        "pages": [
+          "faq"
+        ]
+      },
+      {
+        "tab": "Release Notes",
+        "pages": [
+          "release_update/overview",
+          "release_update/August24"
         ]
       }
     ],
     "global": {
       "anchors": [
         {
-          "anchor": "Documentation",
-          "href": "https://mintlify.com/docs",
-          "icon": "book-open-cover"
+          "anchor": "About Us",
+          "href": "https://www.5x.co/about",
+          "icon": "circle-info"
         },
         {
-          "anchor": "Community",
-          "href": "https://mintlify.com/community",
-          "icon": "slack"
-        },
-        {
-          "anchor": "Blog",
-          "href": "https://mintlify.com/blog",
-          "icon": "newspaper"
+          "anchor": "Status",
+          "href": "https://status.5x.co/",
+          "icon": "signal"
         }
       ]
     }
   },
   "logo": {
     "light": "/logo/light.svg",
-    "dark": "/logo/dark.svg"
+    "dark": "/logo/dark.svg",
+    "href": "https://www.5x.co/"
   },
   "navbar": {
     "links": [
       {
-        "label": "Support",
-        "href": "mailto:hi@mintlify.com"
+        "label": "Login",
+        "href": "https://platform.5x.co/login"
       }
     ],
     "primary": {
       "type": "button",
-      "label": "Dashboard",
-      "href": "https://dashboard.mintlify.com"
+      "label": "Get a demo",
+      "href": "https://www.5x.co/demo"
     }
   },
   "footer": {
     "socials": {
-      "x": "https://x.com/mintlify",
-      "github": "https://github.com/mintlify",
-      "linkedin": "https://linkedin.com/company/mintlify"
+      "x": "https://x.com/datawith5x",
+      "youtube": "https://www.youtube.com/channel/UCyOHdgLesV3FesXXl9-8V_w",
+      "linkedin": "https://twitter.com/DataWith5x"
     }
   }
 }
