@@ -65,14 +65,14 @@
                   "IDE/about",
                   "IDE/sql",
                   {
-                    "group": "DBTModeling",
+                    "group": "dbt™️ Modelling",
                     "pages": [
-                      "DBTModeling/dbt",
-                      "DBTModeling/project-structure",
-                      "DBTModeling/managing-models",
-                      "DBTModeling/testing-and-docs",
-                      "DBTModeling/dbt-console",
-                      "DBTModeling/best-practices"
+                      "IDE/DBTModeling/dbt",
+                      "IDE/DBTModeling/project-structure",
+                      "IDE/DBTModeling/managing-models",
+                      "IDE/DBTModeling/testing-and-docs",
+                      "IDE/DBTModeling/dbt-console",
+                      "IDE/DBTModeling/best-practices"
                     ]
                   },
                   "IDE/github",
