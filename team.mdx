@@ -1,0 +1,151 @@
+---
+title: 'Team'
+---
+
+
+# 5X Teams - User Management and Access Control Guide
+
+## Overview
+
+5X Teams provides comprehensive user management and role-based access control for your workspace. This guide explains how to manage users, assign roles, and configure permissions across different platform capabilities.
+
+<Frame>
+<video
+  src="https://docs.5x.co/assets/medias/Teams-84cab2c03080190fb0e422a2b6d2834b.mp4"
+  controls
+>
+</video>
+</Frame>
+
+## User Management
+
+### Adding New Users
+
+1. Navigate to the "Teams" section in your 5X workspace
+2. Click "Add New User"
+3. Enter the user details:
+   - Name
+   - Email (in format: name@fivex.co)
+   - Select role (Member, Developer, Admin, or custom roles)
+   - Assign warehouse role (e.g., Ingestion, Account Admin)
+
+### Linking Existing Warehouse Users
+
+Instead of creating new warehouse users, you can link existing warehouse users:
+1. Select "Link Existing User" option while choosing warehouse roles
+2. Choose the warehouse user to link
+3. Associate with appropriate roles and permissions
+
+### Importing Users
+
+5X provides a streamlined process for importing existing warehouse users into the platform. This feature is particularly useful when you want to:
+- Map existing warehouse users to 5X users
+- Invite warehouse users who aren't yet on 5X
+
+#### Import Process
+
+1. Navigate to the Teams section
+2. Click on "Import Users" option
+3. You'll see a list of your warehouse users
+
+For each warehouse user, you have two options:
+
+**Option 1: Map to Existing 5X User**
+1. Locate the warehouse user you want to map
+2. Click on the corresponding 5X user from the dropdown
+3. This action will link the warehouse user to the existing 5X user account
+4. The user will maintain their existing 5X role and permissions
+
+**Option 2: Invite New User to 5X**
+1. For warehouse users not yet on 5X, click "Invite to 5X"
+2. Enter the user details:
+   - Provide a name (e.g., "Rock")
+   - Select a 5X role from the available options
+3. Click "Invite User"
+4. The user will receive an invitation to join 5X with the specified role
+
+## Role Management
+
+### Default Roles
+
+5X provides three default roles with predefined permissions. Below is a detailed breakdown of permissions for each role:
+
+5X provides four pre-built roles that cannot be edited but can be assigned/unassigned to users:
+
+| Feature | Admin | Developer | Member | BI User |
+|---------|--------|-----------|---------|---------|
+| Ingestion | Edit | Edit | Read Only | No Access |
+| IDE | Edit | Edit | Read Only | Read Only |
+| Jobs | Edit | Edit | Read Only | No Access |
+| Business Intelligence | Edit | Edit | Read Only | Read Only |
+| Data Apps | Edit | Edit | Read Only | No Access |
+| Utilization | Edit | Read Only | Read Only | No Access |
+| Team | Edit | Read Only | No Access | No Access |
+| Settings - Profile, Credentials | Edit | Edit | Edit | Edit |
+| Settings - Environments & Variables | Edit | Edit | View | View |
+| Settings - Alerts | Edit | Edit | View | No Access |
+| Settings - App Connections | Edit | View | No Access | View |
+
+
+Legend:
+- Edit: Full create, edit, and view permissions
+- Read Only: Can view but cannot modify
+- No Access: Cannot view or access the feature
+- Custom: Configurable permissions for specific capabilities
+
+
+### Custom Roles
+
+Create custom roles to define specific permission sets:
+1. Click "Create New Role"
+2. Provide a role name (e.g., "Demo")
+3. Configure permissions for each capability
+
+### Permission Levels
+
+For each capability, you can assign different access levels:
+
+#### Ingestion
+- No Access: No visibility or control
+- Read-only: Can view configurations
+- Edit: Can modify sync frequency and table configurations
+- Custom: Granular control over specific connectors
+  - View access to selected connectors
+  - Edit access to selected connectors
+  - Ability to create/edit own connectors
+
+#### IDE
+- No Access
+- Read-only
+- Edit
+
+#### Jobs (Orchestration)
+- Read-only
+- Edit
+- Custom
+  - Specific view/edit permissions per job
+
+#### BI (Business Intelligence)
+- Read-only
+- Edit
+
+#### Data Apps
+- Read-only
+- Edit
+- Custom
+  - Granular control over specific apps
+
+#### Utilization
+- No Access
+- Read-only
+
+#### Teams
+- Read-only
+- Edit
+
+#### Settings
+- Read-only
+- Edit
+- Custom
+  - Selective access to specific capabilities
+  - Ability to deny access to certain features

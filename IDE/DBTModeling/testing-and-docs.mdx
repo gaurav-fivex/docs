@@ -1,0 +1,293 @@
+---
+title: "Testing and Documentation"
+description: "Learn how to implement comprehensive testing and documentation for your dbt models in the 5X IDE. This guide covers both generic and custom tests, documentation best practices, and automated testing workflows."
+---
+
+## Generic Tests
+
+### Schema Tests
+
+```yaml
+# models/schema.yml
+version: 2
+
+models:
+  - name: stg_customers
+    description: "Staged customer data with basic cleaning applied"
+    columns:
+      - name: customer_id
+        description: "Primary key"
+        tests:
+          - unique
+          - not_null
+      - name: email
+        tests:
+          - not_null
+          - unique
+          - accepted_values:
+              values: ['@gmail.com', '@yahoo.com', '@hotmail.com']
+              match_substring: true
+
+  - name: fct_orders
+    columns:
+      - name: order_id
+        tests:
+          - unique
+          - not_null
+      - name: amount
+        tests:
+          - not_null
+          - dbt_utils.positive_values
+      - name: status
+        tests:
+          - accepted_values:
+              values: ['pending', 'shipped', 'delivered', 'returned']
+```
+
+### Relationship Tests
+
+```yaml
+models:
+  - name: fct_orders
+    columns:
+      - name: customer_id
+        tests:
+          - relationships:
+              to: ref('dim_customers')
+              field: customer_id
+              severity: error
+```
+
+## Custom Tests
+
+### Single-Column Tests
+
+```sql
+-- tests/assert_positive_value.sql
+{% test positive_value(model, column_name) %}
+
+SELECT
+    {{ column_name }} as value,
+    count(*) as counter
+FROM {{ model }}
+WHERE {{ column_name }} <= 0
+GROUP BY {{ column_name }}
+
+{% endtest %}
+```
+
+### Multi-Column Tests
+
+```sql
+-- tests/assert_total_matches_details.sql
+{% test order_totals_match_line_items(model, total_amount_column, line_items_ref, line_amount_column) %}
+
+WITH order_totals AS (
+    SELECT
+        order_id,
+        {{ total_amount_column }} as total_amount
+    FROM {{ model }}
+),
+
+line_item_totals AS (
+    SELECT
+        order_id,
+        SUM({{ line_amount_column }}) as calculated_total
+    FROM {{ ref(line_items_ref) }}
+    GROUP BY order_id
+)
+
+SELECT
+    ot.order_id,
+    ot.total_amount,
+    lit.calculated_total
+FROM order_totals ot
+JOIN line_item_totals lit
+    ON ot.order_id = lit.order_id
+WHERE ABS(ot.total_amount - lit.calculated_total) > 0.01
+
+{% endtest %}
+```
+
+### Data Quality Tests
+
+```sql
+-- tests/assert_fresh_data.sql
+{% test assert_fresh_data(model) %}
+
+SELECT *
+FROM {{ model }}
+WHERE created_at < dateadd('day', -1, current_timestamp())
+  AND _5x_loaded_at > dateadd('hour', -3, current_timestamp())
+
+{% endtest %}
+```
+
+## Documentation
+
+### Model Documentation
+
+```yaml
+version: 2
+
+models:
+  - name: dim_customers
+    description: |
+      One record per customer. This table contains all deduped
+      customer information with additional calculated fields.
+    config:
+      tags: ['core', 'daily']
+    columns:
+      - name: customer_id
+        description: "Primary key - Unique identifier for each customer"
+        tests:
+          - unique
+          - not_null
+      - name: first_order_date
+        description: "Date of customer's first order"
+      - name: lifetime_value
+        description: "Calculated total revenue from all customer orders"
+        tests:
+          - not_null
+          - positive_value
+    
+    meta:
+      owner: "data_team"
+      update_frequency: "daily"
+      contains_pii: true
+```
+
+### Source Documentation
+
+```yaml
+version: 2
+
+sources:
+  - name: salesforce
+    description: "Raw data from Salesforce CRM"
+    database: raw_data
+    schema: salesforce
+    loader: fivetran
+    loaded_at_field: _5x_loaded_at
+    
+    tables:
+      - name: accounts
+        description: "Raw accounts table from Salesforce"
+        columns:
+          - name: id
+            description: "Salesforce Account ID"
+            tests:
+              - unique
+              - not_null
+          - name: type
+            description: "Account type (Customer, Partner, Prospect)"
+            tests:
+              - accepted_values:
+                  values: ['Customer', 'Partner', 'Prospect']
+        
+        freshness:
+          warn_after: {count: 12, period: hour}
+          error_after: {count: 24, period: hour}
+```
+
+## Test Execution and Management
+
+### Running Tests
+
+```bash
+# Run all tests
+dbt test
+
+# Run specific tests
+dbt test --select test_type:generic
+dbt test --select test_type:singular
+
+# Run tests for specific models
+dbt test --select dim_customers
+dbt test --select +dim_customers  # Include upstream dependencies
+```
+
+### Test Severity Levels
+
+```yaml
+models:
+  - name: critical_model
+    columns:
+      - name: important_field
+        tests:
+          - unique:
+              severity: error  # Fails the run
+          - not_null:
+              severity: warn  # Warning only
+          - accepted_values:
+              values: ['A', 'B', 'C']
+              severity: error
+              threshold: 10  # Number of failures allowed
+```
+
+## Automated Testing Workflow
+
+### Pre-commit Hooks
+
+```yaml
+# .pre-commit-config.yaml
+repos:
+  - repo: https://github.com/sqlfluff/sqlfluff
+    rev: 0.13.2
+    hooks:
+      - id: sqlfluff-lint
+        additional_dependencies: ['dbt-snowflake==1.0.0']
+```
+
+### CI/CD Pipeline Tests
+
+```yaml
+# Example GitHub Actions workflow
+name: dbt Tests
+
+on:
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  dbt-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python
+        uses: actions/setup-python@v2
+      - name: Install dependencies
+        run: |
+          pip install dbt-snowflake
+      - name: Run dbt tests
+        run: |
+          dbt deps
+          dbt compile
+          dbt test
+```
+
+## Best Practices
+
+1. **Test Coverage**
+   - Generic tests for all primary/foreign keys
+   - Custom tests for business logic
+   - Freshness tests for source data
+   - Row count tests for critical models
+2. **Documentation Standards**
+   - Clear model descriptions
+   - Column-level documentation
+   - Source freshness specifications
+   - Ownership and maintenance information
+3. **Test Organization**
+
+   ```plaintext
+   tests/
+   ├── generic/
+   │   ├── schema.yml
+   │   └── sources.yml
+   ├── singular/
+   │   ├── assert_positive_value.sql
+   │   └── assert_totals_match.sql
+   └── utils/
+       └── test_utils.sql
+   ```

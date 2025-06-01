@@ -1,0 +1,66 @@
+---
+title: "Managing Connectors"
+description: "Detailed guide for configuring, optimizing, and managing your data connectors and schemas."
+---
+
+## Connector Setup & Management
+
+### Configure Your Connector
+
+- Click + Add Connector to open the Add Connector popup on the right.
+- Search and select a data source from the supported sources to connect with a data warehouse and Continue.
+- Select the destination where you want to migrate/replicate your data and Continue.
+- Configure the connector details and Continue. 5X may require users to authenticate and authorize the connector to connect to the data source.
+- After setting up, click Save & Test.
+
+<Info>
+A new connector has a default sync frequency of **6 hours** and is paused until the initial sync is completed.
+</Info>
+
+### Manage Existing Connectors
+
+* Test connections
+* Update configurations
+* Monitor sync status
+* Handle errors
+
+## Schema Management
+
+The schema structure lists your connector's schemas with their constituent tables and columns listed accordingly. 
+Users can perform the following schema functions: 
+1. **Expand/collapse** the structure to view the schemas and their path. 
+   - Both active and inactive schemas are listed. 
+   - The structure also highlights the primary key, foreign keys, and core tables.  
+2. **Reload** the schema to the latest version by clicking the  **Reload** button on the **Schema** header. 
+3. **Schema settings**: Users can control how the connector syncs newly added schema, columns and tables as required. Click the **Settings** dropdown to manage your schema settings. 
+   - **Allow all** new schemas, tables and columns. 
+   - **Allow columns** to block new schemas and configurable tables but allow new columns. 
+   - **Block all** new schemas, configurable tables and columns. 
+
+<Frame>
+  ![schema management](https://docs.5x.co/assets/images/schema2-5a236308425b0c71ab896f0869724218.png)
+</Frame>
+
+### Security Features
+Protect sensitive data while maintaining functionality:
+
+### Column hashing/unhashing
+It anonymizes sensitive data, like PII (personally identifiable information) in your destination while maintaining the ability to perform meaningful analysis. This technique transforms the original column values of a dataset into fixed-size hash codes, ensuring data privacy while retaining the ability to perform meaningful analysis. Column hashing is compliant with [GDPR (General Data Protection Regulation)](https://gdpr-info.eu/).
+
+Hover over the column to **hash/unhash** them before syncing the connector. Hasing/unhashing alters the column, and your data may be overwritten. 
+
+<Frame>
+  ![schema4](https://docs.5x.co/assets/images/schema4-65e24f83182effa5950b1a1f9b9f897a.png)
+</Frame>
+
+1. When you **unhash** a column, the source data values are replicated to the destination and have existing hashed values if there are any in the column. It returns a signed 64-bit hash value for the hashed data values. You can overwrite the hashed values and do a historical re-sync for the connector.
+
+      <Frame>
+      ![schema6](https://docs.5x.co/assets/images/schema6-242ec8a1844f6e909232405adad47eeb.png)
+      </Frame>
+
+2. **Hashing** a column removes previously synced data and existing data values are set to NULL value for the column. To update the historical data values of the column, you can select **Re-sync historical data for the connector**. 
+
+      <Frame>
+      ![schema5](https://docs.5x.co/assets/images/schema5-a51909bc89780a2e99e8bff47023b63c.png)
+      </Frame>

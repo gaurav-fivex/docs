@@ -1,0 +1,61 @@
+---
+title: 'Quick setup'
+description: '5X is an enterprise-ready, full-stack data readiness platform designed to streamline your data engineering processes. This guide outlines the process of securely connecting your data warehouse to 5X, providing options that balance functionality with your specific security requirements.'
+---
+
+Enter a unique **workspace name** (special characters are not allowed) and select the required **warehouse option**.
+
+<Frame>
+  ![set-up](https://docs.5x.co/assets/images/set-up1-01a9dae21467310aae7cfa1c7018b93d.png)
+</Frame>
+
+## Integration Options
+
+We offer two methods for integrating your data warehouse with 5X:
+
+1. **Provision New Warehouse**: If you don't have an existing data warehouse or prefer to start fresh, 5X can provision a new Snowflake warehouse for you.
+
+2. **Import Your Own Warehouse**: If you have an existing data warehouse, you can connect it to your 5X workspace.
+
+## Option 1: Provision a New Warehouse
+
+If you don't have an existing data warehouse, 5X can provision one for you using Snowflake. Here's how to set it up:
+
+1. Choose **Provision a New Warehouse** when prompted during the workspace setup, select **"No, I don't have a warehouse yet"**.
+
+2. Click **"Continue with 5X provisioned warehouse"** to initiate the Snowflake account setup process.
+
+3. **Configure Your Snowflake Plan**
+   - Choose your preferred cloud provider (AWS, Azure, or Google Cloud Platform).
+   - Select the geographic region for your data storage and processing.
+   - Pick a Snowflake edition that suits your needs:
+     - Standard: For basic data warehousing and analytics
+     - Enterprise: For advanced features and higher performance
+     - Business Critical: For the highest level of security and availability
+
+4. **Await Provisioning Completion**
+   - 5X will now set up your Snowflake account with the specified configuration.
+   - This process typically takes a few seconds to complete.
+
+5. **Receive Account Details**
+   - Once provisioning is complete, the 5X team will provide you with your Snowflake account details.
+   - These details will include:
+     - Your unique Snowflake account URL
+     - Login credentials for the initial admin user
+     - Information on how to access your new Snowflake account
+
+<Info>
+During the trial period, 5X provides $25 worth of [Snowflake credits](https://docs.snowflake.com/en/user-guide/cost-understanding-compute#what-are-credits). This allows you to explore Snowflake's capabilities without immediate cost concerns.
+</Info>
+
+<Frame>
+  ![set-up2](https://docs.5x.co/assets/images/set-up2-13c052adec994f20c8a1603c4689c136.png)
+</Frame>
+
+## Option 2: Use Existing Warehouse
+
+If you have an existing warehouse, select **Yes, I already have an existing warehouse.** Then choose between **Snowflake** and **Google BigQuery**.
+
+<Frame>
+  ![set-up3](https://docs.5x.co/assets/images/set-up3-b68f8698024f8f6e3831ebfb0dd8249e.png)
+</Frame>

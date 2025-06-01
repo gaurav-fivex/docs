@@ -1,0 +1,325 @@
+---
+title: "Best Practices"
+description: "Learn the best practices for developing, testing, and maintaining dbt projects in the 5X IDE to ensure scalability, performance, and maintainability."
+---
+
+## Project Organization
+
+### Directory Structure
+
+```plaintext
+models/
+├── staging/               # Raw data cleaning
+│   ├── sources.yml       # Source definitions
+│   ├── base/             # Base models
+│   └── stg_customers.sql # Staging models
+├── intermediate/         # Business logic
+│   └── int_customer_orders.sql
+├── marts/               # Business outputs
+│   ├── core/            # Core business concepts
+│   ├── marketing/       # Department specific
+│   └── finance/         # Department specific
+└── utils/              # Utility models
+    └── all_dates.sql   # Date spine, etc.
+```
+
+### Naming Conventions
+
+```sql
+-- Model naming
+stg_[source]_[entity]     -- staging models
+int_[entity]_[verb]       -- intermediate models
+fct_[entity]_[verb]       -- fact tables
+dim_[entity]              -- dimension tables
+
+-- Column naming
+id                        -- Primary keys
+[entity]_id              -- Foreign keys
+[entity]_[attribute]     -- Regular columns
+is_[flag]                -- Boolean flags
+[measure]_amount         -- Monetary values
+[entity]_count           -- Counts
+created_at               -- Timestamps
+```
+
+## Model Development
+
+### Model Templates
+
+```sql
+-- Standard model template
+{{ config(
+    materialized='table',
+    schema='marts',
+    tags=['core', 'daily']
+) }}
+
+WITH source_data AS (
+    SELECT * FROM {{ ref('stg_model') }}
+),
+
+transformed AS (
+    -- Clear transformation steps
+),
+
+final AS (
+    -- Final select with clear column naming
+)
+
+SELECT * FROM final
+```
+
+### Documentation Standards
+
+```yaml
+version: 2
+
+models:
+  - name: fct_orders
+    description: >
+      Fact table containing one row per order.
+      Updated daily at 4 AM UTC.
+    config:
+      tags: ['core', 'orders']
+      meta:
+        owner: 'data_team'
+        sla: '6 hours'
+    columns:
+      - name: order_id
+        description: "Primary key"
+        tests:
+          - unique
+          - not_null
+```
+
+## Performance Optimization
+
+### Materialization Strategy
+
+```sql
+-- Views for light transformations
+{{ config(materialized='view') }}
+
+-- Tables for heavy computations
+{{ config(materialized='table') }}
+
+-- Incremental for large, append-only data
+{{ config(
+    materialized='incremental',
+    unique_key='id',
+    incremental_strategy='merge',
+    on_schema_change='sync_all_columns'
+) }}
+```
+
+### Query Optimization
+
+```sql
+-- Use CTEs for readability
+WITH customers AS (
+    SELECT * FROM {{ ref('stg_customers') }}
+),
+
+-- Optimize joins
+orders AS (
+    SELECT 
+        customer_id,
+        COUNT(*) as order_count
+    FROM {{ ref('stg_orders') }}
+    GROUP BY 1
+)
+
+-- Minimize data movement
+SELECT 
+    c.customer_id,
+    c.name,
+    COALESCE(o.order_count, 0) as order_count
+FROM customers c
+LEFT JOIN orders o
+    ON c.customer_id = o.customer_id
+```
+
+### Incremental Processing
+
+```sql
+{{ config(
+    materialized='incremental',
+    unique_key='event_id',
+    partition_by={
+        "field": "event_date",
+        "data_type": "date",
+        "granularity": "day"
+    }
+) }}
+
+SELECT *
+FROM {{ source('events', 'raw_events') }}
+{% if is_incremental() %}
+WHERE event_timestamp > (
+    SELECT MAX(event_timestamp) 
+    FROM {{ this }}
+)
+{% endif %}
+```
+
+## Testing Strategy
+
+### Test Coverage
+
+```yaml
+# models/schema.yml
+version: 2
+
+models:
+  - name: fct_orders
+    tests:
+      - dbt_utils.equal_rowcount:
+          compare_model: ref('stg_orders')
+    columns:
+      - name: order_id
+        tests:
+          - unique
+          - not_null
+          - relationships:
+              to: ref('dim_customers')
+              field: customer_id
+```
+
+### Custom Tests
+
+```sql
+-- tests/assert_total_equals_sum.sql
+{% test total_equals_sum(model, total_column, sum_columns) %}
+
+SELECT *
+FROM {{ model }}
+WHERE {{ total_column }} != (
+    {% for column in sum_columns %}
+        {{ column }} {{ "+" if not loop.last }}
+    {% endfor %}
+)
+
+{% endtest %}
+```
+
+## Development Workflow
+
+### Source Freshness
+
+```yaml
+sources:
+  - name: raw_data
+    database: raw_db
+    schema: public
+    tables:
+      - name: orders
+        loaded_at_field: _etl_loaded_at
+        freshness:
+          warn_after: {count: 12, period: hour}
+          error_after: {count: 24, period: hour}
+```
+
+### Quality Gates
+
+```yaml
+# dbt_project.yml
+on-run-start:
+  - "CREATE SCHEMA IF NOT EXISTS {{ target.schema }}"
+  - "{{ check_source_freshness() }}"
+
+on-run-end:
+  - "{{ validate_metrics() }}"
+  - "GRANT SELECT ON ALL TABLES IN SCHEMA {{ target.schema }} TO ROLE reporter"
+```
+
+## Code Reusability
+
+### Macros
+
+```sql
+-- macros/clean_string.sql
+{% macro clean_string(column_name) %}
+    TRIM(REGEXP_REPLACE(UPPER({{ column_name }}), '[^A-Z0-9]', ''))
+{% endmacro %}
+
+-- Usage in models
+SELECT {{ clean_string('customer_name') }} as clean_name
+```
+
+### Packages
+
+```yaml
+# packages.yml
+packages:
+  - package: dbt-labs/dbt_utils
+    version: 0.8.0
+  - package: calogica/dbt_date
+    version: 0.5.0
+```
+
+## Maintenance
+
+### Documentation
+
+```yaml
+# models/overview.md
+{% docs __overview__ %}
+# Project Overview
+
+This dbt project transforms raw data into analytics-ready models.
+
+## Model Groups
+1. Staging - Clean raw data
+2. Intermediate - Business logic
+3. Marts - Business concepts
+
+## Update Schedule
+- Staging: Every 6 hours
+- Marts: Daily at 4 AM UTC
+{% enddocs %}
+```
+
+### Monitoring
+
+```sql
+-- Monitor model performance
+{{ config(
+    post_hook=[
+        "INSERT INTO {{ target.schema }}.audit_log SELECT current_timestamp, '{{ this }}'" 
+    ]
+) }}
+```
+
+## Version Control
+
+### Branch Strategy
+
+```plaintext
+main           -- Production code
+└── dev        -- Development branch
+    ├── feat/  -- Feature branches
+    └── fix/   -- Bug fixes
+```
+
+### Release Process
+
+1. Development in feature branch
+2. Tests and documentation
+3. Pull request with reviews
+4. Merge to main
+5. Deploy to production
+
+## Error Handling
+
+### Defensive Programming
+
+```sql
+-- Handle NULL values
+COALESCE(customer_name, 'Unknown') as customer_name
+
+-- Type casting
+SAFE_CAST(string_date as DATE) as converted_date
+
+-- Error logging
+{{ log_errors('Invalid records found in ' ~ this) }}
+```

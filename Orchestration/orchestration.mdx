@@ -1,0 +1,17 @@
+---
+title: "Orchestration"
+description: "The **5X orchestrator** lets you build and deploy scheduled complex data pipelines (DAGs) to production. You can design, maintain and optimise orchestration pipelines for your production environment using scheduled **jobs** based on triggers to deploy to production."
+---
+
+## How orchestrator works
+
+The [Jobs](/Orchestration/jobs) capability uses the orchestrator editor to[ create and deploy orchestration pipeline](/Orchestration/deploy) using drag-and-drop.
+
+- **Job**: A task or a set of tasks defined to execute at its scheduled time in their assigned order.  A job on your workspace defines the scheduled data pipeline configured to deploy in production.
+- **Blocks**: Defines the job. You can configure a **node block**, and connect them using the drag-and-drop function on the **editor**.
+- **Node**: The DAG asset type which can be **trigger** or **task blocks**. A set of nodes uses edges to define the data dependencies between them.
+- **Job Run**: When a job runs, it executes each block configured in the pipeline in its sequence according to the trigger assigned to the pipeline.  Run jobs, and manage current jobs and job history.
+
+<Frame>
+  ![orc1](https://docs.5x.co/assets/images/orc1-1d4b6cbc5f6fbee459d42ad93967e103.png)
+</Frame>

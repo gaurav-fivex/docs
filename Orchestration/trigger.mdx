@@ -1,0 +1,102 @@
+---
+title: 'Trigger'
+description: 'This document outlines the four types of triggers available for job execution in the 5X platform. Triggers determine when and how jobs are initiated, providing flexibility in automation and workflow management.'
+---
+
+
+<Frame>
+  <video src="https://docs.5x.co/assets/medias/Triggers-9074ea85165ea646ef2cf45f49719b59.mp4" controls />
+</Frame>
+
+## Trigger Types
+
+### 1. Manual Trigger
+
+#### Description
+The manual trigger allows users to initiate jobs on-demand through the user interface. This trigger type is ideal for jobs that require human discretion or occasional execution.
+
+#### Use Cases
+- One-time data transformations
+- Ad-hoc analysis tasks
+- Testing and validation workflows
+- Emergency or maintenance operations
+
+#### Configuration
+1. Select "Manual" when creating a new job trigger
+2. No additional configuration required
+3. Jobs can be initiated via the "Run" button in the interface
+
+### 2. Scheduled Trigger
+
+#### Description
+Scheduled triggers automate job execution based on predefined time intervals. Users can specify precise timing using either preset options or custom cron expressions.
+
+#### Configuration Options
+1. **Time-based Settings**:
+   - Daily execution
+   - Weekly execution
+   - Monthly execution
+
+2. **Cron Expression Configuration**:
+   - Format: `* * * * *` (minute hour day-of-month month day-of-week)
+   - Examples:
+     - `0 0 * * *` - Run daily at midnight
+     - `0 */2 * * *` - Run every 2 hours
+     - `30 18 * * MON-FRI` - Run at 6:30 PM on weekdays
+   - UI-based cron builder available for easier configuration
+   - Supports standard cron syntax including:
+     - `*` (any value)
+     - `,` (value list separator)
+     - `-` (range of values)
+     - `/` (step values)
+     - Special characters: `?` `L` `W` `#`
+   
+3. **Advanced Scheduling**:
+   - Custom cron expressions for complex scheduling patterns
+   - Timezone configuration
+   - Interval-based execution
+
+#### Best Practices
+- Use clear naming conventions for scheduled jobs
+- Document the purpose of each schedule
+- Consider dependencies when setting execution times
+- Test cron expressions thoroughly before deployment
+
+### 3. Webhook Trigger
+
+#### Description
+Webhook triggers enable job execution in response to HTTP requests, allowing integration with external systems and event-driven workflows.
+
+#### Setup Process
+1. Select webhook trigger type when creating a new job
+2. Configure authorization settings
+3. Save the trigger to generate a unique webhook URL
+4. Optional: Disable authorization if not required
+
+#### Security Considerations
+- Authorization keys are provided for secure webhook access
+- Keep authorization keys confidential
+- Regularly rotate authorization keys for security
+- Monitor webhook access patterns
+
+#### Example Configuration
+```plaintext
+Webhook URL: https://api.5x.com/trigger/{job-id}
+Authorization Header: X-5X-Auth-Key: {your-auth-key}
+```
+
+### 4. Pull Request Trigger
+
+#### Description
+Pull Request (PR) triggers automatically initiate jobs when pull requests are created in connected GitHub repositories. This trigger type is essential for automated testing and validation workflows.
+
+#### Setup Requirements
+1. GitHub repository connection
+2. Appropriate repository permissions
+3. Configured webhook in GitHub settings
+
+#### Configuration Steps
+1. Select PR trigger type
+2. Choose the target GitHub repository
+3. Configure the job workflow
+4. Save trigger settings

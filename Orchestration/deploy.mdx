@@ -1,0 +1,90 @@
+---
+title: 'Deploy your first pipeline'
+description: 'This guide explains how to add your first orchestration pipeline by creating a Job and deploying it to production.'
+---
+
+## 1. Add production connection for orchestration
+Set up the [Job connection](/Settings/app-connections.mdx#connection-types) from [App connections](/Settings/app-connections.mdx#app-connections) to connect to the deployment environment. 
+
+## 2. Add environment 
+Set up the [Environments](/Settings/environments.mdx) from Settings to add a production environment. 
+
+## 3. Add a new job 
+Navigate to **Jobs** on the left navigation bar of your workspace to create your first dataflow and click **+ New Job**. 
+
+## 4. Add the first node block
+A scheduled trigger runs the pipelines only when triggered on a schedule. It is mandatory to add the scheduled trigger before adding your tasks. 
+
+1. Click **Add block** on the editor to add your first flow. You can also click the **+Add** icon on the bottom-right corner of the orchestrator editor. 
+2. Select the [**Scheduled trigger**](/Orchestration.nodes.mdx#trigger-schedule) block from the **+Add nodes** sidebar. 
+3. Add the trigger **name**. 
+4. Select between [**Custom Time**](/Orchestration/nodes.mdx#custom-time) and [**CRON Expression**](node.md#cron-expression) to configure the schedule. 
+5. Click **Save Triggers**. The block is added to the [editor](/Orchetration/jobs.mdx#job-editor). 
+
+<Frame>
+  ![deploy1](https://docs.5x.co/assets/images/trigger1-7c20ec9c0a09d2d43445796f9b9cb737.gif)
+</Frame>
+
+## 5. Add task block: Ingestion
+Configure the [connector](/Ingestion/connectors.mdx#connector) where you want to [run a sync](/Ingestion/connectors.mdx#sync-now) based on the trigger. Refer to the [parameters](/Orchestration/nodes.mdx#ingestion-task) for ingestion task.  
+1. Click **+ add** block icon on the editor and select the **Ingestion** task. 
+2. Add the ingestion task **name**. 
+3. Select the **connector** from the dropdown list of current connectors.  
+4. Select the **Scheduled trigger** to assign the trigger for the ingestion task. 
+5. Click **Save Task**.
+
+<Frame>
+  ![task2](https://docs.5x.co/assets/images/task2-a02bc12fba223018435846ae91553296.gif)
+</Frame>
+ 
+## 6. Add task block: Modeling
+Run a **dbt job** from the selected repository. Refer to the [parameters](/Orchestration/nodes.mdx#modeling-task) for a dbt task.  
+1. Click the **+ add block** icon on the editor and select the **Modeling** task. 
+2. Enter the modeling **task name**. 
+3. Select from the [**dbt Github repositories**](/IDE/DBTModeling/dbt.mdx#setup-and-connect-dbt-repository) connected to the IDE and the branch from the dropdown. 
+4. Enter the [dbt commands](/Orchestration/nodes.mdx#modeling-task) to run on the branch of the selected repository. 
+5. Enter the number of [threads](node.md#modeling-task). 
+6. Select the trigger schedule from the **Depends on** dropdown. 
+7. Click **Save Tasks**.
+
+<Frame>
+  ![task3](https://docs.5x.co/assets/images/task4-5ccd1c02e6b23e4bf0fac7fc5ea78920.png)
+</Frame>
+
+## 7. Add task block: custom 
+You can also add custom code task to schedule **Python** job runs. Refer to the [parameters](node.md#custom-python-task) for a custom Python task.  
+1. Click the + add block icon on the editor and select the **Modeling** task. 
+2. Enter the Python **task name**. 
+3. Select from the Python repository connected to the IDE and the branch from the dropdown. 
+4. Select the Python file you want to execute and the **dependent libraries** from the dropdown.
+5. Click **Save Tasks**.
+
+<Frame>
+  ![task](https://docs.5x.co/assets/images/task5-44fd759a6b3195596758bf14b4bb4891.png)
+</Frame>
+
+
+## 8. Save and deploy Job 
+Click the **Save Job** dropdown on the top right corner of the [Editor](jobs.md#job-editor) and select the production connection where you want to deploy the **Job**. 
+Once deployed, you can check **job logs** from a block on the editor and run details from the **Job Runs** tab. 
+
+<Frame>
+  ![job8](https://docs.5x.co/assets/images/savejob1-3e9e7dd99cbe7fbe2e248463ec888afc.png)
+</Frame>
+
+## 9. Container Configuration
+By default, newly created jobs are assigned to small containers. However, you have the flexibility to modify the container size if needed. To do this, navigate to the Jobs Overview section and click the three-dot menu next to the job. From there, you can select from three available container sizes:
+
+- Small: 2GB RAM, 1vCPU
+- Medium: 4GB RAM, 2vCPU
+- Large: 8GB RAM, 4vCPU
+
+> **Note on Parallel Node Execution:**
+> While you can add multiple parallel nodes, here are the recommended configurations for optimal performance:
+> - Large containers can run up to 4 nodes in parallel
+> - Medium containers can run up to 2 nodes in parallel
+> - Small containers can run 1 node at a time
+
+## Next steps
+1. [Node blocks](/Orchestration/nodes.mdx): Learn how to use scheduled triggers and task blocks to ingest data, model dbt project and Python jobs. 
+2. [Job](./jobs.mdx): Learn how to [manage current jobs](/Orchestration/jobs.mdx#current-jobs) on your workspace, trigger manual syncs, test, edit, and delete jobs. 

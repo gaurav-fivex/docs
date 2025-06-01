@@ -1,0 +1,158 @@
+---
+title: 'BigQuery'
+description: 'We offer two methods for integrating Google BigQuery with 5X:'
+---
+
+1. **Standard Integration**: Recommended for most users, providing full access to all 5X features, including BigQuery user management via the 5X platform.
+2. **Restricted Access Integration**: Requires only the minimum permissions necessary for essential 5X functions, ideal for organizations with strict security policies or compliance requirements.
+
+### Platform Capabilities
+
+Understanding how 5X interacts with Google BigQuery is crucial for choosing the right integration method. Here's an overview:
+
+| Platform Capability | Google BigQuery Credentials Used | Notes |
+|---------------------|----------------------------------|-------|
+| Ingestion | Dedicated service account | Separate service account for data ingestion tasks. |
+| IDE | Individual user's Google credentials | Each user connects with their own Google account via OAuth. Permissions based on user's BigQuery role. |
+| Jobs | Dedicated service account | Separate service account for executing data jobs. Needs appropriate read/write permissions. |
+| Business Intelligence (BI) | Dedicated service account | Separate service account for BI operations. Typically requires read-only access. |
+| BigQuery User Management | Imported service account | Requires Project IAM Admin role. Only available in Standard Integration. Manages BigQuery users/roles via 5X. |
+
+### Setup Process
+
+### Prepare Your Google Cloud Environment
+
+#### a. Enabling Required APIs
+
+1. Use an account with GCP Project Admin privileges
+2. Navigate to "APIs & Services" > "Enabled APIs & services" in the left sidebar menu
+3. Click the "+ ENABLE APIS AND SERVICES" button at the top
+4. Search for and enable these APIs:
+   - BigQuery API
+   - Cloud Resource Manager API
+5. Ensure each API shows as "Enabled" in your API dashboard
+
+:::note
+These APIs are crucial for BigQuery operations and project resource management. It may take a few minutes for the changes to propagate after enabling.
+:::
+
+#### b. Creating a Service Account
+
+1. Navigate to Left Navbar Menu > IAM & Admin > Service Accounts
+2. Click on +CREATE SERVICE ACCOUNT
+    
+    ![st-up10](./img/set-up6.png)
+
+
+3. Fill in the Service account details
+4. Click on CREATE AND CONTINUE
+
+     ![set-up7](./img/set-up7.png)
+
+
+
+:::note
+Use a descriptive name like "5X_Service_Account" that clearly identifies its association with 5X. This service account is crucial for maintaining the connection between 5X and your BigQuery instance.
+
+:::
+
+#### c. Granting Required Roles
+
+1. Navigate to "IAM & Admin" > "IAM" in the Google Cloud Console
+2. Locate the service account you just created in the list
+3. Click the pencil icon next to your service account to edit its roles
+4. Click "ADD ANOTHER ROLE" and grant the following:
+   - Project IAM Admin (Optional - required for Standard Integration)
+   - BigQuery User
+5. Click "SAVE" to apply the new roles
+6. Click "DONE" to complete the service account setup
+
+
+:::note
+Grant the Project IAM Admin role to enable full functionality, including BigQuery user management via 5X. For Restricted Access Integration, you can omit this role, acknowledging that BigQuery user management will not be available through 5X.
+
+:::
+
+#### d. Creating a JSON file
+
+1. Search and click on the newly created service account
+2. Navigate to the "KEYS" tab in the service account details
+3. Click on "ADD KEY" and select "Create new key"
+  ![st-up10](./img/set-up10.png)
+4. Select "JSON" as the key type
+5. Click "CREATE" to generate and automatically download the JSON file
+3. Enter the required service account details and click **CREATE AND CONTINUE**.
+  ![set-up7](./img/set-up7.png)
+
+:::note
+Keep this JSON file secure, as it contains sensitive credentials for accessing your Google Cloud resources.
+:::
+
+### Import to 5X
+
+Use the created service account credentials (JSON file) to import your Google BigQuery instance into 5X.
+
+  ![set-up7](./img/bigquery_import.png)
+
+
+:::note
+
+| Feature | Standard Integration | Restricted Access Integration |
+|---------|----------------------|-------------------------------|
+| BigQuery User Management | Available through 5X platform | Manage directly in Google Cloud Console |
+
+::: 
+
+### Security Considerations
+
+- All actions performed by 5X are logged and auditable.
+- You retain full control over the warehouse user/service account and can modify or revoke access at any time.
+- 5X employs industry-standard security measures to protect your data and access credentials.
+- 5X uses static IPs to connect to your warehouse. Ensure your firewall allows connections from:
+  - 3.217.202.216
+  - 3.211.173.46
+  - 174.129.146.62
+
+
+## Add your team
+Navigate to [Team](../Team/team.md) and select the **Add a User** button on the top-right corner. Assign the user’s [5X role ](../team.md) and their warehouse roles
+
+:::tip 
+Explore Admin roles and permissions here. 
+:::
+
+## Verify app connections
+[App connections](../Settings/App%20connections.md) let you define the destination for Ingestion, Jobs and BI capabilities in the deployment environment. 
+
+Ensure you have the destination configured to access the capabilities on your workspace. 
+1. Verify the [Ingestion connection](../Settings/App%20connections.md) to ensure the Ingestion destinations (default database) are configured. 
+2. Verify the [Job connection](../Settings/App%20connections.md) to ensure the orchestration destinations (default warehouse) are configured.
+3. Verify the [BI connection](../Settings/App%20connections.md) to ensure the BI destinations (default warehouse and database) are configured.
+
+:::note 
+- A default ingestion connection is pre-configured if you provision a new warehouse from 5X. Check [**App connections**](../Settings/App%20connections.md) for more details. 
+- BI capability depends on your current [**plan**](https://www.5x.co/pricing?utm_campaign=Day1+Summit&_hsenc=p2ANqtz--oOwokEUzy0twCoEkBcFwndMxqvwRTrYEt48qGdwyNJTTGQzGsQXyJOuK79hc-xns6Tnuko2UWjiI9bH1ib-2xzVmL2Q&_hsmi=306344238&utm_content=306344238&utm_source=hs_automation&utm_medium=email) 
+:::
+
+## Add Credentials
+<p> Development credentials ensure you can access the IDE for SQL and dbt queries. 5X pre-configures your development connection when setting up the workspace based on the configured warehouse. </p>
+<p> You can use the IDE to execute SQL queries for your warehouse by default. Refer to [Credentials](../Settings/Credentials.md) to enable dbt access on the IDE. </p>
+
+## Admin-only settings
+Admins have access to the following pages to manage their workspace end-to-end. 
+1. Manage your billing cycles from the [Billings](../Settings/Admin%20only/billing.md) page. 
+2. Explore [pricing plans](https://www.5x.co/pricing?utm_campaign=Day1+Summit&_hsenc=p2ANqtz--oOwokEUzy0twCoEkBcFwndMxqvwRTrYEt48qGdwyNJTTGQzGsQXyJOuK79hc-xns6Tnuko2UWjiI9bH1ib-2xzVmL2Q&_hsmi=306344238&utm_content=306344238&utm_source=hs_automation&utm_medium=email) to upgrade your 5X full-stack capabilities (optional) 
+
+
+## Troubleshooting
+
+If you encounter issues:
+
+1. Verify that the user/service account has the necessary permissions for your chosen integration method.
+2. Check warehouse audit logs for any access issues.
+3. Ensure your firewall allows connections from the 5X static IP addresses.
+4. Contact 5X support if problems persist.
+
+## Conclusion
+
+Our flexible integration options ensure you can leverage 5X's powerful data management capabilities while maintaining your organization's security standards. Whether you choose Standard Integration for full functionality or Restricted Access Integration for enhanced security control, 5X is committed to supporting your data readiness journey securely and efficiently.

@@ -1,0 +1,150 @@
+---
+title: 'Dashboard'
+description: 'Dashboards render end-to-end data visualization experiences using a combination of charts used to expose the data. Dashboards are interactive, dynamic and unified visualization interfaces providing real-time updates to enable data exploration and business intelligence outcomes.'
+---
+
+<Frame>
+  ![db1](https://docs.5x.co/assets/images/db-1-e75dc266544a37848459aff750d254c2.gif)
+</Frame>
+
+## Current Dashboards 
+
+Navigate to the **Dashboards** tab from the **BI** header.  
+- [Import and bulk select](#bulk-select--import-dashboard) on the top-right of the page header. 
+- View current dashboards using **filters** and **sorting** functions. 
+- [Edit](#edit), [export](#export) and [delete](#delete) a current chart on the dashboard. 
+- The current dashboards can be viewed in a **tabular** or **list view**. You can **filter** the rows and **sort** the columns by the chart properties. 
+
+## Prerequisites
+1. You must have an **Admin** or **Developer** [5X role](/Team/rbac.mdx#5x-roles). 
+2. BI must be part of your current 5X plan. Upgrade your plan to subscribe to BI here. 
+3. Must be connected to your warehouse using a [BI connection](/Business-Intelligence/bi.mdx) to deploy in the production environment. 
+4. Must have a [chart](/Business-Intelligence/charts.mdx) created on your workspace.
+
+## Add Dashboard  
+Drag and drop the components from tabs to build your dashboard.  You can add a dashboard using the playground to configure: 
+1. The published charts are available from the **Charts** tab on the right.
+2. Customize and build your dashboard layout from the **Layout Elements** tab. 
+
+<Frame>
+  ![db2](https://docs.5x.co/assets/images/db-2-a912de60b362ea1509ea520e01e78c76.png)
+</Frame>
+
+### Steps
+#### 1. Add dashboard  
+
+Select + Dashboard on the top-right from the Dashboards page. 
+
+#### 2. Drag and drop charts 
+1. Select the chart from the **Charts** tab, and **drag and drop** it to the dashboard playground to build your layout. You can add up to three charts per row.
+2. You can **filter** charts from the search bar 
+3. **Sort** by recently updated, name, datasets and visualization type.
+4. Select **Show only my charts** to filter charts that you own. 
+
+<Frame>
+  ![db3](https://docs.5x.co/assets/images/db-3-7c44c6be115a48f17f41c643d240e15d.gif)
+</Frame>
+
+<Tip>
+Save your updates when you work on draft dashboards. You can always click the **Edit Dashboard** button to start working on it. 
+</Tip>
+
+####  3. Layout elements 
+Customize your dashboard layouts from the **Layout Elements** tab. 
+- **Tabs**: Section graphs by tabs to show up to three charts in each tab. Click the **+ Add** to add a tab and  **Delete** to remove a tab. 
+- **Rows**: They serve as a container to group and organize multiple elements horizontally within a dashboard
+- **Columns**: It divides the horizontal space into sections for placing different elements side by side.
+- **Header**: Add headers to your dashboard visual to section off and label groups of content within a dashboard.
+- **Text**: Add descriptive text, annotations, or explanations directly onto the dashboard.
+- **Divider**:   Use dividers to add visual separators between different sections or groups of content within a dashboard.
+
+<Frame>
+  ![db4](https://docs.5x.co/assets/images/db-4-57c061e57e02312b6af7b78619f60d2a.gif)
+</Frame>
+
+#### 4. Dashboard playground 
+Hover over a chart or a layout element to perform element-level actions like delete and row-level actions. You can undo/redo actions when working on the draft dashboard. 
+- Click on the **Move** icon to move the layout by row or column view. 
+- Click the **settings** icon to update the layout element’s background. 
+- Click the **Delete** icon to delete the layout element. 
+
+<Frame>
+  ![db5](https://docs.5x.co/assets/images/db-5-fad778b95069e73f2bea2f13e924dcab.png)
+</Frame>
+
+#### 5. Save and add global filters   
+1. Once you have updated the dashboard, **Save** the draft from the header. 
+2. **Expand** the Filters panel on the left of the saved dashboard.  Add global filters and apply them to the dashboard.
+    Filters enhance the dashboard interactivity and usability to let users customize their data views and navigate the content more effectively. Set global filters to the dashboard and apply them to run once saved. 
+3. Click **+ADD/EDIT FILTERS** to configure the filters and dividers.
+The **Setting** tab lets you configure the filter details and settings. Filters can be scoped to apply to all panels on the dashboard or only to selected panels from the Scoping tab. 
+  - Add filter layer from the **+ Add filters** and dividers on the left of the Add and edit filters pop-up.
+  - **Settings tab**: Configure filter properties such as type, name, dataset and column association, and settings to sort and filter values.
+  - **Scoping tab**: Configure how you want the filters to be applied to your dashboard panels. You can apply to all or selected filters. 
+
+<Frame>
+  ![db6](https://docs.5x.co/assets/images/db-6-7a49f2e40ccda00791f7638cd4ceff26.png)
+</Frame>
+
+#### 6. Dashboard options 
+Click the **three-dot menu** on the saved dashboard header to interact with the dashboard and files. 
+1. Click *Refresh* dashboard to update the latest changes to the panels and charts. 
+2. Enter fullscreen as needed. 
+3. **Save as**: Save a copy of the dashboard or overwrite it. 
+4. **Download**: Export the dashboard in PDF or PNG format. 
+5. **Share**: Share by email and copy the permalink.
+6. **Embed dashboard**: Embed to external web applications by entering the allowed domains. (E.g., superset.example.com, superset.demo.com)
+7. **Auto-refresh**:  Configure the refresh frequency and **Save for this session**. You can set up a refresh frequency of up to six-hour intervals. 
+
+<Frame>
+  ![db7](https://docs.5x.co/assets/images/db-7-4d38d7f155faf473731adca546d6b698.png)
+</Frame>
+
+You can also access the actions in draft mode. Some additional options are: 
+- **Edit properties:** Update the dashboard properties. 
+- **Edit CSS**: Apply a custom CSS template to the dashboard from saved CSS templates on the workspace. 
+
+<Frame>
+  ![db8](https://docs.5x.co/assets/images/db-8-3027fc1e90bae8d74715608df15d6d8d.png)
+</Frame>
+
+
+#### 7. Publish dashboard 
+Click on the **Draft** button next to the dashboard name to publish it. Mark the dashboard *** favourite** for easy access. 
+
+<Frame>
+  ![db9](https://docs.5x.co/assets/images/db-9-b5b29e301a0f058623b58969bb739b57.png)
+</Frame>
+
+## Edit, export and delete dashboard 
+Hover over to the **Actions** column of a current chart when in list view. In the tabular view, select the **three-dot dropdown** menu next to the chart.
+
+<Frame>
+  ![db10](https://docs.5x.co/assets/images/db-10-d8f82550e04180ef2067cb46c7f7b737.png)
+</Frame>
+
+### Edit 
+Update the dashboard properties from the Edit icon and Save. Dashboard properties include: 
+Basic information like the name and URL SLUG (the readable URL for the dashboard.)
+1. **Access**: list of users who can alter the dashboard. 
+2. **Colors**: The color scheme from the list of preloaded options. 
+3. **Certification**: The certification description and owner details. 
+4. **Tags**: apply the list of tags to the dashboard. 
+5. **Advanced**: JSON metadata to customize and alter parameters as required. This JSON object is generated dynamically when clicking the save or overwrite button in the dashboard view. 
+
+### Export 
+Export the dashboard in `.yaml` and its `metadata.yaml` in `.zip` format. 
+
+### Delete 
+To **delete** the dashboard permanently. 
+
+## Bulk select & import dashboard
+You can bulk-select dashboards to perform actions and import dashboards from the header. 
+- Click **Bulk Select** on the right of the header to add tags, export and delete multiple dashboards at once.
+- Select **Add Tag** to add saved tags to the select dashboards. You can create tags from Settings. 
+- Click the **Import** button to import your dashboard files (`.yaml`) 
+- Click **Delete** to permanently delete the selected dashboards. 
+
+<Frame>
+  ![db11](https://docs.5x.co/assets/images/db-11-5b857f40b1b553124155f37829402014.png)
+</Frame>

@@ -1,0 +1,67 @@
+---
+title: 'Python'
+description: 'The IDE supports Python development in two contexts: direct script development in **My Workspace** and version-controlled development through **GitHub repositories**. This functionality allows you to create, test, and deploy Python scripts for data processing and automation.'
+---
+
+## Python in My Workspace
+
+### Getting Started
+1. Navigate to **Files > My Workspace**
+2. Click **+ Add** and select **New Python File**
+3. Enter file name with `.py` extension
+4. Click **+ Add** and select **New Python File**
+5. Enter file name **Requirements** with `.txt` extension
+
+### Basic Structure
+```python
+# Import common data libraries
+import pandas as pd
+import numpy as np
+from datetime import datetime
+
+# Your processing logic
+def main():
+    # Your code here
+    pass
+
+if __name__ == "__main__":
+    main()
+```
+
+### Supported Libraries
+We support all the python packages supported using pip. You can add them in requirements.txt
+
+### Requirements.txt
+
+
+```python
+# Import common data libraries
+pandas
+numpy
+```
+
+## Python in GitHub Repositories
+
+### Repository Setup
+1. Navigate to **Files > GitHub**
+2. Click **+ Add > Normal repo**
+3. Choose:
+   - **5X Managed** (new repository)
+   - **GitHub** (existing repository)
+
+### Project Structure
+```plaintext
+repository/
+├── requirements.txt      # Package dependencies
+├── App.py
+└── README.md
+```
+
+### Requirements Management
+```plaintext
+# requirements.txt
+pandas>=1.5.0
+numpy>=1.21.0
+requests>=2.28.0
+pytest>=7.0.0
+```

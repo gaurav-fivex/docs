@@ -1,0 +1,226 @@
+---
+title: 'Managing Models'
+description: 'Learn how to create, organize, and manage dbt models effectively in the 5X IDE. This guide covers model development, materialization strategies, and optimization techniques.'
+---
+
+## Creating Models
+
+### Basic Model Structure
+```sql
+-- models/staging/stg_customers.sql
+{{ config(
+    materialized='view',
+    schema='staging',
+    tags=['staging', 'daily']
+) }}
+
+WITH source AS (
+    SELECT * FROM {{ source('raw', 'customers') }}
+),
+
+renamed AS (
+    SELECT
+        id AS customer_id,
+        first_name,
+        last_name,
+        email,
+        created_at
+    FROM source
+)
+
+SELECT * FROM renamed
+```
+
+### Materialization Types
+
+| Type | Use Case | Example |
+|------|----------|---------|
+| View | Lightweight transformations | Staging models |
+| Table | Frequently accessed data | Final marts |
+| Incremental | Large tables with regular updates | Event logs |
+| Ephemeral | Intermediate calculations | Helper models |
+
+```sql
+-- Table materialization
+{{ config(materialized='table') }}
+
+-- Incremental materialization
+{{ config(
+    materialized='incremental',
+    unique_key='order_id',
+    incremental_strategy='delete+insert'
+) }}
+```
+
+## Advanced Model Patterns
+
+### Using Macros
+```sql
+-- macros/generate_schema_name.sql
+{% macro generate_schema_name(custom_schema_name, node) -%}
+    {%- set default_schema = target.schema -%}
+    {%- if custom_schema_name is none -%}
+        {{ default_schema }}
+    {%- else -%}
+        {{ custom_schema_name | trim }}
+    {%- endif -%}
+{%- endmacro %}
+
+-- Using the macro in a model
+{{ config(schema=generate_schema_name('marts')) }}
+```
+
+### Jinja Control Flow
+```sql
+-- Conditional logic
+{% if target.name == 'prod' %}
+    SELECT * FROM prod_table
+{% else %}
+    SELECT * FROM dev_table
+{% endif %}
+
+-- Loops
+{% for payment_type in ['credit', 'debit', 'cash'] %}
+    SELECT 
+        order_id,
+        amount,
+        '{{ payment_type }}' as payment_method
+    FROM {{ ref('payments_' ~ payment_type) }}
+    {% if not loop.last %}
+        UNION ALL
+    {% endif %}
+{% endfor %}
+```
+
+### Complex Transformations
+```sql
+-- models/marts/customer_lifetime_value.sql
+WITH customer_orders AS (
+    SELECT
+        customer_id,
+        COUNT(*) as order_count,
+        SUM(amount) as total_amount,
+        MIN(created_at) as first_order_date,
+        MAX(created_at) as last_order_date
+    FROM {{ ref('fct_orders') }}
+    GROUP BY 1
+),
+
+customer_metrics AS (
+    SELECT 
+        customer_id,
+        order_count,
+        total_amount,
+        DATEDIFF('day', first_order_date, last_order_date) as customer_days,
+        total_amount / NULLIF(order_count, 0) as avg_order_value
+    FROM customer_orders
+)
+
+SELECT 
+    cm.*,
+    c.email,
+    c.country,
+    CASE 
+        WHEN total_amount > 1000 THEN 'high'
+        WHEN total_amount > 500 THEN 'medium'
+        ELSE 'low'
+    END as value_tier
+FROM customer_metrics cm
+LEFT JOIN {{ ref('dim_customers') }} c
+    ON cm.customer_id = c.customer_id
+```
+
+## Cross-Database References
+
+```sql
+{{ config(
+    materialized='table',
+    database='analytics'
+) }}
+
+WITH source_data AS (
+    SELECT *
+    FROM {{ source('raw', 'events') }}
+    WHERE date_trunc('day', event_timestamp) = current_date
+)
+```
+
+## Performance Optimization
+
+### Incremental Models
+```sql
+{{ config(
+    materialized='incremental',
+    unique_key='event_id',
+    incremental_strategy='merge'
+) }}
+
+SELECT
+    event_id,
+    event_type,
+    event_timestamp,
+    user_id,
+    {% if is_incremental() %}
+    -- this filter will only be applied on an incremental run
+    WHERE event_timestamp > (SELECT max(event_timestamp) FROM {{ this }})
+    {% endif %}
+```
+
+### Partitioning and Clustering
+```sql
+{{ config(
+    materialized='table',
+    partition_by={
+        "field": "date_day",
+        "data_type": "date",
+        "granularity": "day"
+    },
+    cluster_by=["customer_id", "product_id"]
+) }}
+```
+
+## Model Documentation
+```yaml
+version: 2
+
+models:
+  - name: customer_lifetime_value
+    description: "Calculated customer lifetime value metrics"
+    config:
+      tags: ['marts', 'customer']
+    columns:
+      - name: customer_id
+        description: "Primary key"
+        tests:
+          - unique
+          - not_null
+      - name: total_amount
+        description: "Total customer spend"
+        tests:
+          - not_null
+          - positive_values
+```
+
+## Best Practices
+
+1. **Naming Conventions**
+   ```plaintext
+   - Staging: stg_[source]_[table]
+   - Intermediate: int_[entity]_[verb]
+   - Marts: fct_[entity]_[verb] or dim_[entity]
+   ```
+
+2. **Model Organization**
+   ```plaintext
+   models/
+   ├── staging/          # One folder per source
+   ├── intermediate/     # Business logic layers
+   └── marts/
+       ├── core/        # Core business concepts
+       └── marketing/   # Department-specific models
+   ```
+
+3. **Testing Strategy**
+   - Generic tests in schema files
+   - Custom tests for complex logic
+   - Data quality tests at each layer

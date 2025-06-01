@@ -1,0 +1,64 @@
+---
+title: 'Settings'
+description: ''
+---
+
+## Security
+This section explains how to manage action logs and configure row-level security for your workspace. 
+
+### Action log
+The **Action Log** tab provides a detailed record of activity of your BI instance. You can filter logs using various criteria, including:
+
+- **User**: Specify which user's actions you want to view.
+- **Date/Time (dttm)**: Filter logs by specific date and time ranges.
+- **Action**: Select particular actions to focus on.
+- **Slice ID**: Filter logs by specific slice identifiers.
+- **Dashboard I**D: View logs related to specific dashboards.
+- **JSON**: Search logs containing specific JSON data.
+- **Duration (ms)**: Filter logs based on the duration of actions in milliseconds.
+- **Referrer**: Filter logs by the referrer information.
+
+### Row-level security 
+Row Level security uses filters assigned to a particular table and a set of roles. 
+Configuring the row level security includes,
+- Rule name (unique), 
+- Select dataset,
+- **Regular and base filter types**: Regular filters add where clauses to queries if a user belongs to a role referenced in the filter. Base filters apply filters to all queries except the roles defined in the filter, and can be used to define what users can see if no RLS filters within a filter group apply to them.
+- **Group key**: Filters within the same group key are combined using an OR operation. Filters from different group keys are combined using an AND operation. If a filter's group key is undefined, it is treated as belonging to a unique group.
+- **Clause**: This condition will be added to the WHERE clause. For example, to return rows for a specific client, you might use a filter with the condition `client_id = 9`. To ensure no rows are displayed unless a user belongs to a specific RLS (Row-Level Security) role, you can create a base filter with the condition `1 = 0` (always false).
+
+You can check the current row level security from the overview, and sort and filter to customize the view. Click **+Rule** to create a new rule. 
+
+## Manage 
+This section lets you configure metrics like [**tags**](#tags) for analysis, custom styling using [CSS templates](#css-templates) and add context to their visualizations by overlaying additional information on charts using [annotation layer](#annotation-layers). 
+
+### CSS templates
+You can customize the styling of your BI workspace by embedding the CSS template code. 
+- Select **+CSS Template** on the top-right of the header to embed the CSS code. 
+- **Bulk select** when you want to delete multiple templates on the workspace. 
+- Add the template name and embed the CSS code, and click **Add**.
+
+   Example: We are applying a CSS template that defines styles for the navigation bar and chart headers, along with a color palette array.
+- You can hover over the existing template to update it by clicking on **Edit** and delete it from the **Delete** icon. 
+
+
+### Tags
+Tags help organize and categorize dashboards, charts, and datasets to enhance navigation.
+- Quickly search and filter items using tags.
+- Create and apply custom tags to fit specific needs.
+- Facilitate team collaboration to shared resources.
+
+Navigate to **Tags** from **Settings** on your BI workspace. 
+1. You can **search** and **filter** the current tags listed in rows by the users and name. 
+2. You can hover over the existing template to update it by clicking on **Edit** and delete it from the **Delete** icon. 
+3. **Bulk Select** from the top-right of the header to delete multiple tags. 
+4. Select **+Tag** on the top right of the header to create a tag and configure its properties. You can apply the tag to multiple dashboards, charts and saved queries. 
+
+
+### Annotation layers 
+Annotation layer lets you overlay contextual information to charts.
+You can use text, markers, lines and shaded regions to  highlight significant events and additional information to interpret the data rendered in [Charts](./charts.md). This feature enhances the interpretability of your data by providing clear visual cues and context.
+1. Navigate to **Annotation Layers** in **Manage** to create and manage annotation layers. 
+2. Click **+Annotation Layer** to add annotation layer,  and configure its name and description.  
+
+Once added, apply it to your chart. You can hover over the existing annotation layers to update them using **Edit** and **Delete**.

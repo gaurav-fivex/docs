@@ -1,0 +1,62 @@
+---
+title: 'Preparation'
+description: ''
+---
+
+## Overview
+
+Before embedding any dashboard, the first step is to collect required information needed for Step 2: Deployment. This article discusses how to retrieve the required information to properly embed a dashboard into your application.
+
+## Collect the Information
+
+<Note>
+**Required Permissions**
+
+The following steps require **Admin/Developer** role access in the Workspace.
+</Note>
+
+### Steps to Enable Embedding
+
+1. Access your Workspace, and navigate to the dashboard that you want to embed
+2. Select the options menu icon (horizontal ellipsis) and choose **Embed dashboard**
+
+<Frame>
+  ![embed](https://docs.5x.co/assets/images/Embed-83962b52b8663b3ff6d997ae516d34e9.png)
+</Frame>
+
+3. The *Embed* dialog appears
+4. In the **Allowed Domains** field, enter one or more domains in which the dashboard will be embedded to (your application URL)
+
+<Frame>
+  ![embed2](https://docs.5x.co/assets/images/embed_dialogue_final-0e3115a9843faf342bbd86a4e147cce9.png)
+</Frame>
+
+5. Make sure to also include the domain for any development environment (separate multiple values with a comma)
+6. Select **Enable Embedding**
+
+### Important Information
+
+After enabling embedding, a dialog will display the following required information:
+
+<Frame>
+  ![embed3](https://docs.5x.co/assets/images/embed_dialogue-b69619d002a45f979f72a7a19cc3e69d.png)
+</Frame>
+
+* The **Embedded Dashboard ID** is used with the Superset SDK to embed the dashboard in your application
+* The **Embedded Dashboard ID** is used to generate a new embedded guest token
+
+<Tip>
+**Domain Configuration Guidelines**
+
+- Wildcard is not supported
+- If adding domains, make sure to include the protocol (https:// or http://)
+- Leave the **Allowed Domains** field empty to allow embedding the dashboard into **any destination**
+</Tip>
+
+### Managing Embedding Settings
+
+The **Embed dashboard** option in the dashboard ellipsis menu can be used to:
+* Launch this dialog at any time
+* Modify allowed domains settings
+* Validate the information
+* Disable embedding

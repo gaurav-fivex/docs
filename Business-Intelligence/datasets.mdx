@@ -1,0 +1,77 @@
+---
+title: 'Datasets'
+description: 'BI identifies your data using the databases connected to your warehouse. You can use Datasets to specify the database, schema and table for querying and visualization. A dataset is a virtual view created on top of the configured database and stores the required data.'
+---
+
+Navigate to the **Datasets** tab from the BI header. You can: 
+- [Add datasets](#add-dataset), [import and bulk select](#bulk-select--import-datasets) on the top-right of the page header. 
+- View current datasets from the dashboard using filters and sorting functions. 
+- [Edit, export and delete](#edit-export--delete-dataset) a current dataset on the dashboard. 
+- Connect to Google Sheets and add `.csv`, `.xlsx`, and columnar files to your database. 
+
+<Frame>
+  ![bi4](https://docs.5x.co/assets/images/bi4-b1f962e0cb3401cf87bcef4eb1b33500.png)
+</Frame>
+
+## Prerequisites
+1. You must have an **Admin** or **Developer** [5X role](/Team/rbac.mdx). 
+2. BI must be part of your current 5X plan. Upgrade your plan to subscribe to BI here. 
+3. Must be connected to your warehouse using a [BI connection](/Settings/app-connections.mdx#business-intelligence) to deploy in the production environment. 
+
+## Add Dataset 
+The dataset source configurations require:
+- **Database**: Connection to your warehouse database from where BI will access the schema. 
+- **Schema**: The database schema to access the table.
+- **Table**: The table and the SQL query which will be stored in the dataset.  
+
+<Note>
+You can only associate one dataset with a table. Associated tables for Snowflake databases are tagged  to help identify them more easily. 
+</Note>
+
+### Steps
+
+1. Click **+ Dataset** on the top-right of the page header.
+2. Select the **database**, **schema** and **table**.  You can force refresh the schema and the table list to update the latest changes.
+3. Click **Create Dataset and Create Chart** on the bottom-right corner of the page. The dataset is saved under the table name. Next, you can [create a new chart](/Business-Intelligence/charts.mdx#1-add-chart) for the dataset.
+
+## Add files to the database 
+You can connect Google Sheets and upload CSV, columnar files, and Excel files to your BI database. 
+
+Click the **+ Quick access > Data** to:
+1. **Connect Google Sheet:**
+Integrate and visualize data from Google Sheets directly using a database dedicated to storing all Google Sheets. Add publicly shared and publicly + privately shared sheets by configuring the sheet details and **Connect**. 
+2. **Upload CSV to database**
+3. **Upload columnar file to database**: BI supports the upload of various columnar file formats optimized for storage and retrieval efficiency.
+4. **Upload Excel file to database**: Import Excel files (.xlsx) to your BI database.
+
+<Frame>
+  ![bi-1](https://docs.5x.co/assets/images/bi1-4eee3227c90c412ab7931d3b7668dace.png)
+</Frame>
+
+<Info>
+- You must enable **Allow file uploads to the database** from your database settings to upload a CSV, columnar or Excel file to the database. 
+- You need to create a dedicated database to begin using your Google Sheets.
+</Info>
+
+## Edit, export & delete dataset  
+Hover over to the Actions column of a current dataset to:
+- **Edit** the dataset source, metrics, columns, calculated columns and settings. 
+- **Export** the dataset in .zip format. 
+- **Delete** the dataset permanently. 
+
+<Frame>
+  ![bi-3](https://docs.5x.co/assets/images/bi3-949c318f97cea1ef17218141b5f4637b.png)
+</Frame>
+
+<Warning>
+Updating the dataset when you **Edit** impacts all charts using the dataset. 
+</Warning>
+
+
+## Bulk select & import datasets
+1. **Bulk Select** on the top-right corner to delete and export the selected datasets. 
+2. Select **Import** to import required datasets.
+
+<Frame>
+  ![bi-2](https://docs.5x.co/assets/images/bi2-b94852bffe9683b444dd68295fc25c77.png)
+</Frame>

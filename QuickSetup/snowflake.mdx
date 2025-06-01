@@ -1,0 +1,196 @@
+---
+title: 'Snowflake'
+description: 'We offer two methods for integrating Snowflake with 5X:'
+---
+
+
+1. **Standard Integration**: Recommended for most users, providing full access to all 5X features.
+2. **Restricted Access Integration**: Requires only the minimum permissions necessary for essential 5X functions, ideal for organizations with strict security policies or compliance requirements.
+
+<iframe src="https://www.loom.com/embed/44b743cf963e43f1a68e6311b204015d?sid=47ee342a-7478-4155-b6f9-733c7d22bba9" frameborder="0" width="100%" height="480" webkitallowfullscreen mozallowfullscreen allowfullscreen />
+
+### Platform Capabilities
+
+Understanding how 5X interacts with Snowflake is crucial for choosing the right integration method. Here's an overview:
+
+| Platform Capability            | Snowflake Credentials Used              | Notes                                                                                                                                                     |
+| ------------------------------ | --------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Ingestion                      | Dedicated ingestion user                | Separate user for data ingestion tasks.                                                                                                                   |
+| IDE                            | Individual user's snowflake credentials | Each user connects with their own Snowflake account. Permissions based on user's Snowflake role                                                           |
+| Jobs                           | Dedicated jobs user                     | Separate user for executing data jobs. Needs appropriate read/write permissions                                                                           |
+| Business Intelligence (BI)     | Dedicated BI user                       | Separate user for BI operations. Typically requires read-only access                                                                                      |
+| Snowflake User Management      | Imported FIVEX_USER                     | Requires privileges to manage users, roles and grants on snowflake account. Only available in Standard Integration. Manages Snowflake users/roles via 5X. |
+| Snowflake Utilization Tracking | Imported FIVEX_USER                     | Depends on the snowflake permissions tied to imported user.                                                                                               |
+
+### Setup Process
+
+#### Prepare Your Snowflake Environment
+
+Run the following script in Snowflake to create a dedicated user (FIVEX_USER) with the necessary privileges:
+
+```sql
+BEGIN;
+
+-- Set variables (customize as needed)
+SET role_name = 'FIVEX_ROLE';
+SET user_name = 'FIVEX_USER';
+SET user_password = 'your_secure_password_here';
+SET warehouse_name = 'FIVEX_WAREHOUSE';
+
+-- Create role and user
+USE ROLE securityadmin;
+CREATE ROLE IF NOT EXISTS identifier($role_name);
+GRANT ROLE identifier($role_name) TO ROLE SYSADMIN;
+
+CREATE USER IF NOT EXISTS identifier($user_name)
+    PASSWORD = $user_password
+    DEFAULT_ROLE = $role_name
+    DEFAULT_WAREHOUSE = $warehouse_name;
+
+GRANT ROLE identifier($role_name) TO USER identifier($user_name);
+ALTER USER identifier($user_name) SET BINARY_INPUT_FORMAT = 'BASE64';
+
+-- Set up warehouse
+USE ROLE sysadmin;
+CREATE WAREHOUSE IF NOT EXISTS identifier($warehouse_name)
+    WAREHOUSE_SIZE = XSMALL
+    AUTO_SUSPEND = 60
+    AUTO_RESUME = TRUE
+    INITIALLY_SUSPENDED = TRUE;
+
+GRANT USAGE ON WAREHOUSE identifier($warehouse_name) TO ROLE identifier($role_name);
+
+-- Grant additional permissions
+USE ROLE ACCOUNTADMIN;
+-- User Management Permissions (comment out if snowflake user management via 5X is not required)
+GRANT CREATE USER ON ACCOUNT TO ROLE identifier($role_name);
+GRANT CREATE ROLE ON ACCOUNT TO ROLE identifier($role_name);
+GRANT MANAGE GRANTS ON ACCOUNT TO ROLE identifier($role_name);
+
+-- Snowflake Utilization Access (comment out if snowflake utilization tracking via 5X is not required)
+GRANT IMPORTED PRIVILEGES ON DATABASE SNOWFLAKE TO ROLE identifier($role_name);
+
+COMMIT;
+```
+
+#### Configure for Restricted Access Integration (If Required)
+
+5X is designed to work seamlessly with your Snowflake account while respecting your organization's unique data governance policies. We offer flexible configuration options that allow you to tailor the integration to your specific needs. Here's how you can customize the access levels:
+
+#### User and Role Management
+
+By default, 5X can assist with Snowflake user and role management through our platform. If your organization prefers to manage these aspects directly in Snowflake, you can adjust the configuration as follows:
+
+Comment out these lines in the setup script:
+
+```sql
+GRANT CREATE USER ON ACCOUNT TO ROLE identifier($role_name);
+GRANT CREATE ROLE ON ACCOUNT TO ROLE identifier($role_name);
+GRANT MANAGE GRANTS ON ACCOUNT TO ROLE identifier($role_name);
+```
+
+<Info>
+  User and role management for Snowflake will need to be performed directly through Snowflake's interface or API. Snowflake user management via the 5X Platform will be disabled.
+</Info>
+
+#### Snowflake Utilization Insights
+
+5X can provide valuable insights into your Snowflake usage to help optimize your data operations. However, if your data policies require restricting access to utilization data, you can adjust the configuration as follows:
+
+Comment out this line in the setup script:
+
+```sql
+GRANT IMPORTED PRIVILEGES ON DATABASE SNOWFLAKE TO ROLE identifier($role_name);
+```
+
+#### Applying Your Customizations
+
+1. Review the setup script and decide which aspects of the integration you want to customize based on your organization's policies.
+2. Comment out the relevant lines as described above.
+3. Run the modified script to set up the integration according to your specifications.
+
+Remember, these configurations can be adjusted in the future if your requirements change. Our support team is always available to help you optimize the 5X-Snowflake integration to best serve your data strategy.
+
+### Import to 5X
+
+Use the created FIVEX_USER credentials to import your Snowflake instance into 5X. You can authorize 5X to connect to your Snowflake account using either **Username & Password** or **Key Pair** authentication.\
+The key pair authentication uses a public-private key pair to establish secure connections, eliminating the need for passwords. The private key is securely stored, while the public key is shared with the server
+
+<Frame>
+  ![set-up4](https://docs.5x.co/assets/images/set-up4-93a82956c28f07c7dbe421ca377259fc.png)
+</Frame>
+
+5X tests the connection to Snowflake when it establishes a connection with the account and validates the credentials. Once authenticated, the workspace is set up and a confirmation mail is sent.
+
+<Info>
+  | Feature                   | Standard Integration          | Restricted Access Integration |
+  | ------------------------- | ----------------------------- | ----------------------------- |
+  | Snowflake User Management | Available through 5X platform | Manage directly in Snowflake  |
+  | Utilization Tracking      | Full access in 5X             | Limited or no access in 5X    |
+</Info>
+
+### Security Considerations
+
+- All actions performed by 5X are logged and auditable.
+- You retain full control over the Snowflake user and can modify or revoke access at any time.
+- 5X employs industry-standard security measures to protect your data and access credentials.
+- 5X uses static IPs to connect to your warehouse. Ensure your firewall allows connections from:
+  - 3.217.202.216
+  - 3.211.173.46
+  - 174.129.146.62
+
+### Troubleshooting
+
+If you encounter issues:
+
+1. Verify that FIVEX_USER has the necessary permissions for your chosen integration method.
+2. Check Snowflake audit logs for any access issues.
+3. Ensure your firewall allows connections from the 5X static IP addresses.
+4. Contact 5X support if problems persist.
+
+## Add your team
+
+Navigate to [Team](/Team/team.mdx) and select the **Add a User** button on the top-right corner. Assign the user’s [5X role ](/Team/team.mdx) and their warehouse roles
+
+<Info>
+  Explore Admin roles and permissions here.
+</Info>
+
+## Verify app connections
+
+[App connections](/Settings/app-connections.mdx) let you define the destination for Ingestion, Jobs and BI capabilities in the deployment environment.
+
+Ensure you have the destination configured to access the capabilities on your workspace.
+
+1. Verify the [Ingestion connection](/Settings/app-connections.mdx) to ensure the Ingestion destinations (default database) are configured.
+2. Verify the [Job connection](/Settings/app-connections.mdx) to ensure the orchestration destinations (default warehouse) are configured.
+3. Verify the [BI connection](/Settings/app-connections.mdx) to ensure the BI destinations (default warehouse and database) are configured.
+
+<Info>
+  - A default ingestion connection is pre-configured if you provision a new warehouse from 5X. Check [**App connections**](/Settings/app-connections.mdx) for more details.
+  - BI capability depends on your current [**plan**](https://www.5x.co/pricing?utm_campaign=Day1+Summit&_hsenc=p2ANqtz--oOwokEUzy0twCoEkBcFwndMxqvwRTrYEt48qGdwyNJTTGQzGsQXyJOuK79hc-xns6Tnuko2UWjiI9bH1ib-2xzVmL2Q&_hsmi=306344238&utm_content=306344238&utm_source=hs_automation&utm_medium=email)
+</Info>
+
+## Add Credentials
+Development credentials ensure you can access the IDE for SQL and dbt queries. 5X pre-configures your development connection when setting up the workspace based on the configured warehouse.
+
+You can use the IDE to execute SQL queries for your warehouse by default. Refer to Credentials to understand this a little more.
+## Admin-only settings
+
+Admins have access to the following pages to manage their workspace end-to-end.
+
+1. Manage your billing cycles from the [Billings](/Settings/admin-only/billing.mdx) page.
+2. Explore [pricing plans](https://www.5x.co/pricing?utm_campaign=Day1+Summit&_hsenc=p2ANqtz--oOwokEUzy0twCoEkBcFwndMxqvwRTrYEt48qGdwyNJTTGQzGsQXyJOuK79hc-xns6Tnuko2UWjiI9bH1ib-2xzVmL2Q&_hsmi=306344238&utm_content=306344238&utm_source=hs_automation&utm_medium=email) to upgrade your 5X full-stack capabilities (optional)
+
+## Troubleshooting
+
+If you encounter issues:
+
+1. Verify that the user/service account has the necessary permissions for your chosen integration method.
+2. Check warehouse audit logs for any access issues.
+3. Ensure your firewall allows connections from the 5X static IP addresses.
+4. Contact 5X support if problems persist.
+
+## Conclusion
+
+Our flexible integration options ensure you can leverage 5X's powerful data management capabilities while maintaining your organization's security standards. Whether you choose Standard Integration for full functionality or Restricted Access Integration for enhanced security control, 5X is committed to supporting your data readiness journey securely and efficiently.

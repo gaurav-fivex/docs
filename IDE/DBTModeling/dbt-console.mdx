@@ -1,0 +1,232 @@
+---
+title: "dbt Console"
+description: "The dbt Console in 5X IDE provides an integrated environment for developing, testing, and deploying dbt models. This guide covers the console's key components and functionality."
+sidebarTitle: "dbt Console"
+---
+
+## Console Interface
+
+| Component | Description            | Usage                            |
+| --------- | ---------------------- | -------------------------------- |
+| Build     | Execute dbt commands   | Run models and tests             |
+| Compile   | View compiled SQL      | Debug and verify transformations |
+| Preview   | Test model results     | Quick data validation            |
+| Lineage   | Visualize dependencies | Understand model relationships   |
+
+## Build Terminal
+
+### Common Commands
+
+```bash
+# Core model operations
+dbt run                     # Run all models
+dbt run --select model_name # Run specific model
+dbt run --full-refresh     # Rebuild all models
+
+# Testing
+dbt test                   # Run all tests
+dbt test --select model_name # Test specific model
+
+# Documentation
+dbt docs generate          # Generate documentation
+dbt docs serve            # View documentation locally
+```
+
+### Advanced Command Options
+
+```bash
+# Selective model execution
+dbt run --select tag:daily  # Run models with specific tag
+dbt run --exclude tag:nightly # Exclude specific models
+
+# State management
+dbt run --state path/to/state # Use state comparison
+dbt run --defer --state prod  # Defer to production
+
+# Variables and environment
+dbt run --vars '{"date": "2024-01-01"}'
+```
+
+## Model Preview
+
+### Preview Panel
+
+```sql
+-- Preview model results directly
+SELECT * 
+FROM {{ ref('my_model') }}
+LIMIT 10
+```
+
+Features:
+
+- Interactive data grid
+- Column statistics
+- Export results
+- Quick filtering
+
+## Lineage Visualization
+
+### Navigation
+
+1. **Controls**:
+   - Zoom in/out
+   - Reset view
+   - Download diagram
+2. **Search Options**:
+
+   ```plaintext
+   model_name           # Direct search
+   +model_name         # Include upstream
+   model_name+         # Include downstream
+   2+model_name+2      # Include 2 levels up/down
+   ```
+
+### Interactivity
+
+- Click nodes to show/hide details
+- Double-click to focus on a model
+- Drag nodes to rearrange
+- Filter by tags or status
+
+### Custom Filters
+
+```plaintext
+tag:daily              # Show models with specific tag
+status:materialized    # Show materialized models
+owner:analytics        # Show models by owner
+```
+
+## Command History
+
+The terminal maintains a history of executed commands with:
+
+- Timestamp
+- Exit status
+- Duration
+- Log output
+
+Example output:
+
+```bash
+[12:34:56] Running with dbt=1.7.3
+[12:34:57] Found 7 models, 4 tests
+[12:34:58] 
+ 
+  model.my_project.stg_customers ........................... [OK in 2.31s]
+  model.my_project.stg_orders ............................. [OK in 1.98s]
+```
+
+## Debug Console
+
+### Jinja Debugging
+
+```sql
+{{ print(this) }}              # Print current model context
+{{ print(model.depends_on) }}  # Print model dependencies
+{{ print(modules.datetime) }}  # Print available modules
+```
+
+### SQL Preview
+
+```sql
+-- View compiled SQL with variables resolved
+{{ compile('my_model') }}
+```
+
+## Performance Monitoring
+
+### Execution Metrics
+
+- Query execution time
+- Rows processed
+- Warehouse credits used
+- Cache hits/misses
+
+### Query Profile
+
+```sql
+-- Enable query profiling
+{{ config(
+    enable_profiling=true
+) }}
+```
+
+## State Management
+
+### State Commands
+
+```bash
+# Save current state
+dbt compile --state path/to/state
+
+# Compare with previous state
+dbt run --state path/to/state
+```
+
+## Environment Variables
+
+### Setting Variables
+
+```bash
+export DBT_ENV_SECRET_KEY=value
+export DBT_PROFILES_DIR=path/to/profiles
+```
+
+### Using Variables
+
+```sql
+{{ env_var('DBT_ENV_SECRET_KEY') }}
+```
+
+## Output Formats
+
+### Results Panel
+
+- Table view
+- JSON view
+- Raw SQL view
+- Error details
+
+### Export Options
+
+- CSV export
+- JSON export
+- SQL script export
+
+## Keyboard Shortcuts
+
+| Action         | Shortcut               | Description           |
+| -------------- | ---------------------- | --------------------- |
+| Run Model      | Cmd/Ctrl \+ Enter      | Execute current model |
+| Format SQL     | Cmd/Ctrl \+ Shift \+ F | Format SQL code       |
+| Save           | Cmd/Ctrl \+ S          | Save current file     |
+| Toggle Console | Cmd/Ctrl \+ J          | Show/hide console     |
+
+## Best Practices
+
+1. **Command Organization**
+
+   ```bash
+   # Group related commands
+   dbt run --select staging
+   dbt test --select staging
+   ```
+2. **Error Handling**
+
+   ```bash
+   # Use --fail-fast for development
+   dbt run --fail-fast
+   
+   # Use --warn-error for production
+   dbt run --warn-error
+   ```
+3. **Resource Management**
+
+   ```bash
+   # Limit threads for development
+   dbt run --threads 4
+   
+   # Use full threads for production
+   dbt run --threads 8
+   ```

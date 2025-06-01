@@ -1,0 +1,232 @@
+---
+title: 'Deployment'
+description: ''
+---
+
+## Overview
+
+Now that you have all the required information from Step 1: Preparation, it's time to dive into the deployment process.
+
+The dashboard embedding process consists of four steps:
+
+1. Create a guest token
+2. Supply a guest token to front-end
+3. Install the Superset embedded SDK
+4. Embed the dashboard using the SDK
+
+## Preparing your System for Embedding
+
+A strong system will have safeguards built in at multiple levels. It is important to take protective steps when using embedded dashboards to expose data outside your organization.
+
+## Step 1: Create Guest Tokens (Back-end)
+
+A guest token authenticates an embedded user to access a 5X BI dashboard in embedded mode (through your application). This token defines the data the user should have access to.
+
+Currently, there is only one way to generate a guest token:
+* Using the 5X API
+
+### Using the 5X API
+
+Guest tokens are created by calling the following endpoint:
+```
+POST https://api-v1.5x.co/business-intelligence/v1/guest-token
+```
+
+<Info>
+Getting an API Key
+
+Contact 5X Support (support@5x.co) or your 5X Customer Success Manager to obtain an API Key.
+</Info>
+
+
+<Warning>
+API Key Security
+
+Token creation must only be done in a trusted back-end execution context. Never expose your 5X API Key!
+</Warning>
+
+### Example Code
+
+```python
+"""
+Embedded Guest Token generation
+Generates a guest token to be used by the Embedded SDK
+"""
+embedded_payload = json.dumps({
+    "user": {
+        "username": "example_username",
+        "first_name": "First",
+        "last_name": "Last"
+    },
+    "dashboardIds": ["1","2"],
+    "rls": []
+})
+
+embedded_response = requests.post(
+    "https://api-v1.5x.co/business-intelligence/v1/guest-token",
+    data=embedded_payload,
+    headers={ "Authorization": "<5X API Key>" }
+).json()
+
+guest_token = embedded_response["data"]["guestToken"]
+host = embedded_response["data"]["host"]
+```
+
+### API Fields Explanation
+
+* **user** (Required): Profile info about the user viewing the dashboard
+  * username field should be unique for each user
+* **dashboardIds** (Required): List of dashboards the user will be allowed to see
+* **rls** (Required): List of row-level security rules for this token
+
+### RLS Rules
+* Can include optional `dataset: id` parameter for specific dataset targeting
+* Example clauses:
+  * `"publisher = 'Nintendo'"`
+  * `"location_id = {warehouse.id}"`
+  * `"NOT events.is_secret"`
+  * `"team_id = {team_id}"`
+* Multiple rules are joined using AND
+
+### Warnings
+* Rules without dataset parameter apply to all datasets
+* Never insert untrusted input into RLS clauses to prevent SQL injection
+
+### Example Payload
+```json
+{
+  "user": {
+    "username": "grace_hopper",
+    "first_name": "Grace",
+    "last_name": "Hopper"
+  },
+  "dashboards": ["1","2"],
+  "rls": [
+    { "clause": "username = 'grace_hopper'" },
+    { "dataset": 16, "clause": "environment = 'production'" },
+    { "dataset": 42, "clause": "state = 'published'" }
+  ]
+}
+```
+
+## Step 2: Supply Guest Tokens to Front-end
+
+### Example Implementation (Python/Flask)
+```python
+@app.route("/guest-token", methods=["GET"])
+@login_required
+def get_guest_token():
+    payload = json.dumps({
+        "user": {
+            "username": g.user.username,
+            "first_name": g.user.first_name,
+            "last_name": g.user.last_name
+        },
+        "dashboards": ["1","2"],
+        "rls": [
+            { "clause": f"user_id = '{g.user.id}'" }
+        ]
+    })
+
+    token_response = requests.post(
+        "https://api-v1.5x.co/business-intelligence/v1/guest-token",
+        data=payload,
+        headers={ "Authorization": "<5X API Key>" }
+    ).json()
+
+    return token_response["data"]["guestToken"]
+```
+
+### Access Control
+* Implement user authentication checks
+* Use RLS rules for data access control
+* Example organization-based rule:
+  ```json
+  { "clause": "organization = {user.organization}" }
+  ```
+
+## Step 3: Install the Superset Embedded SDK
+
+### NPM Installation
+```bash
+npm install --save @superset-ui/embedded-sdk
+```
+
+### CDN Installation
+```html
+<script src="https://unpkg.com/@superset-ui/embedded-sdk"></script>
+```
+
+## Step 4: Embed the Dashboard Using the SDK
+
+### ES6 Implementation
+```javascript
+import { embedDashboard } from "@superset-ui/embedded-sdk";
+
+embedDashboard({
+  id: "abc123", // given by the Superset embedding UI
+  supersetDomain: "https://superset.example.com",
+  mountPoint: document.getElementById("my-superset-container"),
+  fetchGuestToken: () => fetchGuestTokenFromBackend(),
+  dashboardUiConfig: {
+      hideTitle: true,
+      filters: {
+          expanded: true,
+      },
+      urlParams: {
+          foo: 'value1',
+          bar: 'value2'
+      }
+  },
+  iframeSandboxExtras: ['allow-top-navigation', 'allow-popups-to-escape-sandbox']
+});
+```
+
+### CDN Implementation
+```html
+<script src="https://unpkg.com/@superset-ui/embedded-sdk"></script>
+<script>
+  supersetEmbeddedSdk.embedDashboard({
+    // same parameters as ES6 implementation
+  });
+</script>
+```
+
+### Configuration Options
+```javascript
+dashboardUiConfig: {
+    hideTitle: false,
+    hideChartControls: false,
+    filters: {
+      expanded: true,
+    },
+    urlParams: {
+      param_name: "value",
+      other_param: "value",
+    }
+}
+```
+
+### Iframe Size Adjustment
+```javascript
+const myDashboard = await embedDashboard();
+
+setInterval(async () => {
+    const { width, height } = myDashboard.getScrollSize();
+    setCss(`
+        .embedded-superset iframe {
+            width: ${width};
+            height: ${height};
+        }
+    `);
+}, 1000);
+```
+
+## About Embedded Authentication
+
+### Guest Token Details
+* Enables access to embedded 5X BI resources without normal login
+* Contains user profile data and permissions
+* 1-hour lifetime with automatic refresh via SDK
+* Permissions are defined at token creation
+* No connection to the 5X user who set up the embedded dashboard

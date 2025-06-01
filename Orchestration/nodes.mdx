@@ -1,0 +1,105 @@
+---
+title: "Nodes"
+description: "The following supported nodes help you schedule and configure tasks for each block of your job."
+---
+
+- **Ingestion**: Run a connector sync to ingest data from various sources.
+- **Modeling**: Run a dbt job from the select repository.
+- **Custom code**: Run a custom Python file and its dependent libraries from a selected repository.
+- **Job**: Run another job when the current job completes.
+
+## Common Parameters
+
+All nodes include a **Depends On** field that specifies which prior nodes must complete successfully before the current node can begin execution. This enables the creation of complex workflows with proper sequencing.
+
+## Nodes
+
+Required parameters for each task block:
+
+### Ingestion Task
+
+Run a [connector sync](/Orchestration/jobs) to ingest data from various [sources](/Ingestion/sources).
+
+| Parameter  | Description                                        |
+| ---------- | -------------------------------------------------- |
+| Task name  | The modeling task name                             |
+| Connector  | The connector will run a sync based on the trigger |
+| Depends On | Prior nodes that must complete before this task    |
+
+### Modeling Task
+
+Run a **dbt job** from the selected branch of your dbt Github repository.
+
+| Parameter    | Description                                                                                                                                           |
+| ------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Task name    | The modeling task name                                                                                                                                |
+| Repo         | The dbt repository where the transformed data is deployed                                                                                             |
+| Branch       | The target branch of the dbt repository to use for deploying                                                                                          |
+| Target name  | The dbt target profile to use for this job run (e.g., 'dev', 'prod'). This determines which connection settings from profiles.yml will be used        |
+| dbt commands | Add dbt commands executed when there is a job run                                                                                                     |
+| dbt docs     | Radio button to enable/disable dbt documentation generation during the job run. When enabled, dbt docs will be updated with the latest schema changes |
+| Deferral     | Environment to compare changes against for dbt CI (e.g., 'prod'). This enables selective model running based on changes                               |
+| Threads      | Threads represent the number of concurrent models that can be executed simultaneously. More threads can potentially speed up the execution of the job |
+| Depends On   | Prior nodes that must complete before this task                                                                                                       |
+
+#### Understanding dbt CI and Deferral
+
+dbt CI is an optimization approach that runs and tests only modified dbt models instead of the entire project. This significantly reduces pipeline execution time and computational resources.
+
+The deferral environment (set in the "Deferral" field) is the environment whose model states you want to reference - typically your production environment. Think of it as telling dbt: "Use the tables that already exist in production for any unchanged models, only run the models I've modified."
+
+For example, if you set your deferral environment to 'prod':
+
+1. dbt will check your production environment for existing model states
+2. For any model you haven't changed, it will use the version that already exists in production
+3. For models you have modified and their dependents, it will run new transformations
+
+Consider a project with this dependency chain:
+
+```
+customers_raw --> customers --> customer_orders --> monthly_sales
+```
+
+If you only modify the `customers` model, and set deferral to 'prod', Slim CI will:
+
+- Use the existing `customers_raw` table from production (unchanged)
+- Run the modified `customers` model
+- Run `customer_orders` and `monthly_sales` (downstream dependencies)
+
+This is especially valuable for large dbt projects where running all models would significantly slow down development and testing cycles.
+
+<Info>
+  We recommend using **2 threads** to get started, but the optimal number depends on factors like the available resources and the complexity of the transformations.
+</Info>
+
+### Custom Python Task
+
+Run a custom **Python file** and its dependent libraries from a selected repository.
+
+| Parameter         | Description                                                                |
+| ----------------- | -------------------------------------------------------------------------- |
+| Task name         | The modeling task name                                                     |
+| Repo              | The dbt repository where the transformed data is deployed                  |
+| Branch            | The target branch of the dbt repository to use for deploying               |
+| Python file       | Add dbt commands executed when there is a job run                          |
+| Python version    | The version of Python to use for executing the code (e.g., 3.8, 3.9, 3.10) |
+| Dependent library | The dependent libraries that will run with the python file                 |
+| Depends On        | Prior nodes that must complete before this task                            |
+
+### Job Task
+
+Run another job when the current job completes, enabling job chaining and complex workflows.
+
+| Parameter  | Description                                     |
+| ---------- | ----------------------------------------------- |
+| Task name  | Name of the job task                            |
+| Job name   | Name of the job to be triggered upon completion |
+| Depends On | Prior nodes that must complete before this task |
+
+## Edit, Test and Delete a Task
+
+1. Click on a job to open in **preview-only** mode in the Editor
+2. Click **Edit** to update the pipeline
+3. **Edit task**: hover over a task block and click the **Edit** icon to edit the block parameters
+4. **Test task**: hover over a task block and click the **Test** icon to test the steps executed in the block
+5. **Delete task**: hover over a task block and click the **Delete** icon to delete the block permanently

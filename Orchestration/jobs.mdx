@@ -1,0 +1,88 @@
+---
+title: "Jobs"
+description: "You can build and manage data pipelines on your workspace from **Jobs**."
+---
+
+From the Jobs page, you can:
+
+1. [Add and deploy a new job](/Orchestration/deploy): Create a new orchestration pipeline from the **\+ New Job** button on the top-right of the Jobs page.
+2. Track and analyse your pipeline using [job run history](#job-runs-and-logs) and job logs.
+3. [Manage current jobs](#current-jobs) to enable/disable them, test, and delete jobs.
+
+<Frame>
+  <video src="https://docs.5x.co/assets/medias/jobs1-2e2e2317786dd7a3665116e2ecfce87d.mp4" controls />
+</Frame>
+
+## Job editor
+
+Build and orchestrate data pipeline on the Editor. The Job editor is a playground where you can:
+
+- [Add node blocks](/Orchestration/deploy.mdx#3-add-the-first-node-block)
+- **Drag and drop** blocks across your pipeline.
+- **Zoom in/out** of the editor view.
+- [Run a draft job](/Orchestration/deploy.mdx#7-run-draft-job) in the development environment before deploying it to production.
+
+<Frame>
+  ![editor1](https://docs.5x.co/assets/images/editor1-7acb42c6487f1cf42e52bb4bc0029d64.png)
+</Frame>
+
+Once the deployed job runs, the **Editor** is locked in **preview-only** mode. You can,
+
+1. Click **Edit** to update the job in the editor.
+2. Click **Run now** to trigger a manual job run.
+3. Check the job logs of each task node. Click **View Logs** at the foot of a block to check its logs.
+
+<Frame>
+  ![editor2](https://docs.5x.co/assets/images/editor2-f8e3ee25bd164f30381b1d0343fd286b.png)
+</Frame>
+
+## Job runs and logs
+
+The Job Runs page lists the run history of the respective job since its deployment.
+
+- `runID`: When the job runs based on the scheduled trigger, each run history is generated and stored using a job `runID`.
+- **Trigger**: Indicates if the job run was triggered manually or using the trigger schedule.
+- **Status**: Indicates the job run status: **running**, **success**, and **failure**.
+- **Start date** and **duration**: the time when the run started and its duration.
+
+### Run history and logs
+
+1. Navigate to your **Jobs** and click on a current job to check its details.
+2. **Run a manual job**: you can manually run a job from the three-dot menu in the Actions column of the Jobs page.
+3. Navigate to the **Job Runs** page of a job to check its run history.
+4. Click on a job run to check its details and **logs**.
+   - The pipeline overview highlights the task blocks by their **job run status**.
+   - Click on a task block to check and **download** its **job run logs**.
+
+<Frame>
+  ![editor3](https://docs.5x.co/assets/images/jobrun1-9e855b3bffd2285fea6be32a84c148b6.gif)
+</Frame>
+
+## Current jobs
+
+Lists the current jobs deployed to production environments on your workspace. You can filter the columns using search and sort.
+
+- **Environment**: indicates which production environment is used to deploy.
+- **Container size**: Orchestration uses small, medium and large container sizes to deploy jobs.
+- **Recent runs**: indicates the history of the last five job runs by their run status. Hover over a run cycle to view its runID, status and time.
+- **Actions**: you can perform actions to manage your current jobs from the **three-dot menu** in the Actions column.
+
+### Resume/pause job
+
+**Resume/pause** a job from the **three-dot** dropdown menu in the **Actions** column of a job.
+
+### Rename job
+
+Click **Rename** job to update its name from the t**hree-dot** dropdown menu in the **Actions** column of a job.
+
+### Run now
+
+Click **Run now** to run the jobs manually from the **three-dot** dropdown menu in the **Actions** column of a job.
+
+### Delete
+
+Click **Delete** to delete a job permanently from the **three-dot** dropdown menu in the **Actions** column of a job. This action is irreversible.
+
+<Frame>
+  ![jobs](https://docs.5x.co/assets/images/jobs1-e8dc71fcd1ac34111c3cbfdb82615951.gif)
+</Frame>

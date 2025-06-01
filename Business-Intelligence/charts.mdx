@@ -1,0 +1,187 @@
+---
+title: "Charts"
+description: "Charts are used to store the datasets and visualize data for analytics. You can interact with data using the SQL editor to create the right visualization. Users can associate multiple charts to a dataset."
+---
+
+Navigate to the **Charts** tab from the **BI** header.
+
+- [Add chart](#add-a-chart), [import and bulk select](#bulk-select--import-chart) on the top-right of the page header.
+- View current charts from the [dashboard](#dashboard) using filters and sorting functions.
+- [Edit](#edit), [export](#export) and [delete](#delete) a current chart on the dashboard.
+
+## Prerequisites
+
+- You must have an Admin or Developer [5X role](/Team/rbac.mdx#5x-roles).
+- BI must be part of your current 5X plan. Upgrade your plan to subscribe to BI here.
+- Must be connected to your warehouse using a [BI connection](/Settings/app-connections.mdx#business-intelligence) to deploy in the production environment.
+- Must have a configured [dataset](/Business-Intelligence/datasets.mdx).
+
+## Dashboard
+
+The current charts on your dashboard can be viewed in a **tabular** or **list view.** You can **filter** the rows and **sort** the columns by the chart properties.
+
+<Frame>
+  ![chart2](https://docs.5x.co/assets/images/chart2-9f5a8bac8d20ff310bab155df8863f80.png)
+</Frame>
+
+## Add a chart
+
+You can create a new chart by,
+
+1. Selecting the dataset and chart type from the chart explorer, and
+2. Configuring chart source, query and customisation from the chart configuration panel.
+
+### Steps
+
+#### 1. Add chart
+
+Select **\+ Chart** on the top-right of the header from the **Charts** page.
+
+#### 2.New chart explorer
+
+**Choose a dataset** \> select the **chart type** \> **Create New Chart**.
+
+- You can explore the charts from the left navigation panel and search on the right pane.
+- The charts are grouped by their categories, recommended tags and tags. When you select a chart type, its tags, visuals and context are updated on the tab below.
+
+<Frame>
+  ![chart-3](https://docs.5x.co/assets/images/chart3-936c6e3b6430c41cec2a9416174594f3.gif)
+</Frame>
+
+#### 3.Chart configuration panel
+
+The interactive panel lets you configure the chart source, and interact and query data with the SQL editor to set up the data analysis and confirm the preview. You can **drag and drop** the values to their respective fields.
+
+##### Chart source
+
+This column shows the dataset metrics and columns scoped to the current dataset you selected. You can move the metric and column values to set up the query of the chart.
+
+**Edit** or **swap the dataset** from the **three-dot menu** next to the dataset in the chart source section.
+
+- Click **Edit dataset** to update the source configuration, including the database details, metrics, columns, calculated columns and settings.
+- Click **Swap dataset** to replace it with a new dataset for the chart.
+
+<Warning>
+- Changing chart properties affects all charts using this dataset
+- Changing the dataset may break the chart if the chart relies on columns or metadata that do not exist in the target dataset.
+</Warning>
+
+##### Data & Customize
+
+1. The **Data** tab lets you interact with the chart configurations.
+
+- Update the chart **type**.
+- Configure the **x-axis** columns, **metrics** and **filters** from the **Query** tab.
+  Drag and drop the column, query data from saved columns, select from drop-down or write a custom SQL query.
+- Depending on the chart type, you can additionally configure values like row limit, dimensions, truncating metric, sort by and more.
+
+2. Depending on the chart type selected, you can also customize the chart from the **Customize** tab.
+3. When you configure the chart source and data fields, you’re prompted to **Create Chart** for visual feedback on the **Chart preview**.
+4. Click **Update Chart** to update the chart preview.
+5. Click the **Samples** tab at the bottom of the chart preview to check the data in your columns.
+
+<Info>
+- Metrics cannot be empty. You have to enter at least one value to render the graph.
+- You can use an aggregation function on a column or write custom SQL to create a metric
+</Info>
+
+Additional sections may include:
+
+- **Advanced analytics**: Allows advanced analytical post-processing of query results.
+- **Annotation and Layers**: Allows to add annotation layers and customize the annotation type, layer configuration and display overlay.
+- **Predictive Analytics**: Allows forecasting configurations.
+
+<Frame>
+  ![chart4](https://docs.5x.co/assets/images/chart4-1a5ad6970163778e873d6239dc14d741.png)
+</Frame>
+
+##### Chart preview
+
+This section renders the graphical representation of the configured query.
+
+- Customize the graphical preview directly by clicking on the columns to **disable/enable** them, **filter** and hover over the chart to **check data**.
+- When you run the query and update the chart, it is rendered on the preview.
+- **Expand** the window to view the updated query in the Results tab and the original table in the **Samples** tab at the bottom.
+
+Click **Update Chart** whenever you update the query to generate the preview.
+
+<Frame>
+  ![chart5](https://docs.5x.co/assets/images/chart5-7d8a4f459dc2025038ca49cd4207a96a.gif)
+</Frame>
+
+##### Custom SQL
+
+You can write custom SQL queries for data source configurations or dashboard customizations. This allows detailed data transformations and analyses within the visualization.
+
+You can access the SQL editor when:
+
+- Updating the chart properties from the **Data** tab.
+<Frame>
+  ![chart6](https://docs.5x.co/assets/images/chart6-b4dac550e1f50031e563d1060d95982e.png)
+</Frame>
+
+- From **View query** in the **three-dot dropdown** on the corner of the chart header.
+<Frame>
+  ![chart7](https://docs.5x.co/assets/images/chart7-9202c238f8508683f2bbabdaba4a9d53.png)
+</Frame>
+
+##### Chart options
+
+You can access the chart options from the three-dot menu on the top-right corner of the chart name. Here, you can:
+
+- Check and navigate to the dashboards where the chart is added.
+- Select **Download** to export the chart to .CSV, .JSON, and .xlsx formats, and download the image.
+- Select **Share** to share the chart by email, copy the permalink to the clipboard and embed the code.
+- Select **View query** to open the SQL editor of the chart.
+
+<Frame>
+  ![chart8](https://docs.5x.co/assets/images/chart8-7fa2643b1e8401b6b1591fff6f0baf6f.png)
+</Frame>
+
+#### 4. Save Chart
+
+Click **Save** to save the chart and add it to an existing, or a new dashboard. Once confirmed, click **Save and go to Dashboard** to publish the chart.
+
+<Frame>
+  ![chart9](https://docs.5x.co/assets/images/chart9-e1e7d0831866e4b2619613a9b9aef7c5.png)
+</Frame>
+
+## Bulk select & import chart
+
+1. **Bulk Select** on the top-right corner to **delete**.
+2. Select **Import** to import required datasets.
+
+<Frame>
+  ![chart10](https://docs.5x.co/assets/images/chart10-759ff7f2ae00848f403faff38e15100d.png)
+</Frame>
+
+## Edit, export & delete chart
+
+Hover over to the **Actions** column of a current chart when in list view. In the tabular view, select the **three-dot dropdown menu** next to the chart.
+
+<Frame>
+  ![chart11](https://docs.5x.co/assets/images/chart11-bf70c711f9a2f3200dea379947885a46.png)
+</Frame>
+
+### Edit
+
+Update the chart properties from the configuration panel from the **Edit** icon and **Save**.
+You can update chart properties like:
+
+- Basic information like the chart name and its description.
+- Certification details like certified by and details if the chart is certified by individuals or groups.
+- The cache timeout configuration for the chart.
+- The **access owners** select the list of users who can alter the chart.
+- Select and update the list of **tags** applied to the chart.
+
+<Tip>
+We recommend setting the duration (seconds) to -1 to bypass the cache. If the field is undefined, -1 is the default value of the dataset's timeout.
+</Tip>
+
+### Export
+
+**Export** the chart including its associated datasets and database files along with the metadata.yaml file in `.zip` format.
+
+### Delete
+
+To **delete** the chart permanently. This action will remove all the dataset associations with the chart.

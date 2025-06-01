@@ -1,0 +1,72 @@
+---
+title: "About IDE"
+---
+
+# About IDE
+
+The **IDE (Integrated Development Environment)** is a unified code editor built for data teams. It lets you access and model warehouse data to define and develop metrics in code centrally.
+
+Users can work on multiple SQL, Python and dbt queries by connecting to the required warehouses and assigning their roles respectively on their workspace.
+
+**Admins** and **developers** have [full access] to the **IDE** where they can:
+
+- Run SQL queries using the [SQL editor](/IDE/sql) to update and manage warehouse data
+- Model warehouse data using [dbt](/IDE/dbt/dbt) (data build tool) for downstream orchestration needs with version control management
+- Work with python code
+
+<Frame>
+  <video src="https://docs.5x.co/assets/medias/ide1-5a3969394e9253d5265ac65b1aeec373.mp4" controls />
+</Frame>
+
+## Prerequisites
+
+- Must have a [development credential](/Settings/credentials) connected to a Snowflake warehouse
+- Must have **Admin** or **Developer** [5X role](/Team/rbac#5x-roles)
+- Must enable dbt from [credentials](/Settings/credentials.mdx#credentials-) to run dbt queries on the IDE
+
+## IDE Interface
+
+The Editor is designed with the following components:
+
+### Schema
+
+The warehouse databases are updated in the **Schema** tab once the development credentials are configured. It provides a structured view of your warehouse schema with the databases and tables.
+
+Key features:
+
+1. **Search** schemas and tables in your database using the search box
+2. **Refresh data sources**: Click the Refresh icon next to the Data sources section
+3. **Place name in editor**: Quick-add table names to queries
+4. **Preview data**: View table data and schema information
+5. **Add columns in editor**: Select all columns from a table
+
+### Worksheet
+
+A worksheet is where you start drafting queries. The worksheets are maintained in the Files tab under:
+
+- **My workspace**: Personal scratch pad for draft worksheets
+- **Github**: Maintains your dbt repositories with version control
+
+Each worksheet contains:
+
+- Connection selector for warehouse role and development warehouse
+- Code editor with syntax highlighting
+- Query execution options like Run, Run all and Run with Limit 500
+
+### Files
+
+Manage your worksheets and repositories:
+
+- **My workspace**: Draft and develop SQL queries
+- **Github**: Connect to GitHub repositories for dbt projects
+- Add, rename, move and delete files/folders
+- Switch between branches
+
+### Git
+
+Support version control through Github repository integration:
+
+- Manage multiple Git repositories
+- File and branch version management
+- Commit, sync, and merge changes
+- Support for dbt and Python repositories

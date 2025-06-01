@@ -44,9 +44,85 @@
                 ]
               },
               {
+                "group": "Quick setup",
+                "pages": [
+                  "QuickSetup/quick-setup",
+                  "QuickSetup/snowflake",
+                  "QuickSetup/big-query"
+                ]
+              },
+              {
                 "group": "Ingestion",
                 "pages": [
-                  "Ingestion/using-ingestion"
+                  "Ingestion/using-ingestion",
+                  "Ingestion/managing-connectors",
+                  "Ingestion/sources"
+                ]
+              },
+              {
+                "group": "IDE",
+                "pages": [
+                  "IDE/about",
+                  "IDE/sql",
+                  {
+                    "group": "dbt™️ Modelling",
+                    "pages": [
+                      "DBTModeling/dbt",
+                      "DBTModeling/project-structure",
+                      "DBTModeling/managing-models",
+                      "DBTModeling/testing-and-docs",
+                      "DBTModeling/dbt-console",
+                      "DBTModeling/best-practices"
+                    ]
+                  },
+                  "IDE/github",
+                  "IDE/python"
+                ]
+              },
+              {
+                "group": "Orchestration",
+                "pages": [
+                  "Orchestration/orchestration",
+                  "Orchestration/jobs",
+                  "Orchestration/trigger",
+                  "Orchestration/nodes",
+                  "Orchestration/deploy"
+                ]
+              },
+              {
+                "group": "Business-Intelligence",
+                "pages": [
+                  "Business-Intelligence/index",
+                  "Business-Intelligence/bi",
+                  "Business-Intelligence/dashboard",
+                  {
+                    "group": "Embeddings",
+                    "pages": [
+                      "embeddings/dashboard",
+                      "embeddings/preparation",
+                      "embeddings/deployment"
+                    ]
+                  },
+                  "Business-Intelligence/charts",
+                  "Business-Intelligence/datasets",
+                  "Business-Intelligence/settings"
+                ]
+              },
+              {
+                "group": "Semantic Layer",
+                "pages": [
+                  "Semantic-Layer/sl",
+                  {
+                    "group": "Setup-Guide",
+                    "pages": [
+                      "Setup-Guide/getting-started-sl",
+                      "Setup-Guide/connection-config",
+                      "Setup-Guide/creating-project",
+                      "Setup-Guide/getting-started-dm",
+                      "Setup-Guide/edit-mode",
+                      "Setup-Guide/query-playground"
+                    ]
+                  }
                 ]
               },
               "architecture"

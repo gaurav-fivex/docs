@@ -1,0 +1,145 @@
+---
+title: "Version Control with Git"
+description: "The 5X IDE provides integrated Git version control for projects, enabling collaborative development and safe deployment of data transformations."
+sidebarTitle: "Github"
+---
+
+## Version Control Overview
+
+### Branch Types
+| Branch Type | Purpose | Naming Convention |
+|-------------|---------|-------------------|
+| Main | Production code | `main` or `master` |
+| Development | Feature development | `dev/feature-name` |
+| Release | Release preparation | `release/v1.0.0` |
+| Hotfix | Production fixes | `hotfix/issue-description` |
+
+### Branch Protection if enabled on Github
+- Changes require pull requests
+- Tests must pass before merging
+- Code review requirements
+
+## Git Operations
+
+### Basic Workflow
+1. **Create Branch**
+   1. Click "Create Branch"
+   2. Enter branch name: "feature/new-customer-model"
+   3. Select source branch (usually main)
+
+2. **Commit Changes**
+
+4. **Merge Process**
+   1. Create pull request
+   2. Wait for CI/CD checks
+   3. Address review comments
+   4. Merge to main
+
+
+:::note
+If you dont have branch protection you can directly push to main
+:::
+
+
+## File Management
+
+### Modified Files Panel
+
+Status indicators:
+- M - Modified
+- A - Added
+- D - Deleted
+- R - Renamed
+
+## Branch Management
+
+### Create Branch
+
+2. From Git Panel:
+   1. Click on the branch dropdown. 
+   2. Search for the branch you want to create.
+   3. Click "Create Branch"
+
+### Switch Branches
+1. Select branch from dropdown
+2. IDE prompts to commit/stash changes
+3. Branch changed, files updated
+
+
+## Commit Operations
+
+### Commit Changes
+
+# Single file commit
+1. Hover over file
+2. Click commit icon
+3. Enter commit message
+4. Click "Commit Changes"
+
+# Multiple file commit
+1. Enter commit message
+2. Select files to include
+3. Click "Commit All Changes"
+
+
+## Merge Operations
+
+### Pull from Main
+
+1. Click "Create a Pull Request"
+2. Go to Github and Create a Pull Request
+
+
+### Merge to Main if No Branch Protection
+
+1. Ensure changes are committed
+2. Click "Merge to main"
+3. Review changes
+4. Confirm merge
+
+## Conflict Resolution
+
+### Conflict Detection
+```plaintext
+CONFLICT models/staging/stg_customers.sql
+<<<<<<< HEAD
+SELECT customer_id, name
+=======
+SELECT customer_id, full_name
+>>>>>>> feature/customer-name
+```
+
+### Resolution Process
+1. Open conflicted file
+2. Review changes in diff view
+3. Choose resolution:
+   - Accept current
+   - Accept incoming
+   - Manually edit
+4. Mark as resolved
+5. Commit resolution
+
+## Best Practices
+
+### Branch Management
+1. **Regular Syncs**
+   - Keep branch updated
+   - Resolve conflicts early
+ 
+2. **Clean Branches**
+   - Delete merged branches
+   - Remove obsolete branches
+ 
+
+### Commit Strategy
+1. **Atomic Commits**
+   - One logical change per commit
+   - Clear commit messages
+   - Reference tickets/issues
+
+2. **Regular Commits**
+  
+   - Commit frequently
+   - Push changes daily
+   - Back up work
+   
