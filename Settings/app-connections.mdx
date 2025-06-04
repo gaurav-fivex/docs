@@ -1,5 +1,176 @@
 ---
-title: 'New file'
-description: 'Description of your new file.'
+title: 'App Connections'
+description: ''
 ---
 
+App connections maintain the production connections of your workspace to run [Ingestion](#ingestion), [Jobs](/Orchestration/jobs) and [BI](/Business-Intelligence/bi) (if included in your plan) capabilities. 5X sets up default Ingestion and orchestration connections when setting up your workspace. You can set up multiple production connections for a capability. 
+
+<Frame>
+<video
+  src="https://docs.5x.co/assets/medias/apps-c3387986771f116b49443787b2dc4435.mp4"
+  controls
+>
+</video>
+</Frame>
+
+## Connection Types
+
+5X supports connections for [Ingestion](/Ingestion/using-ingestion), Orchestration, and [BI](/Business-Intelligence/bi). Default Ingestion and orchestration connections are set up during workspace setup, allowing you to start [ingesting data](#ingestion) and run [SQL queries](/IDE/sql) on the [IDE](/Overview/features).
+
+<Note>
+- Currently, we support destination connections for Snowflake and Google BigQuery warehouses. 
+- Default connections are set up regardless of how the warehouse account is provisioned.
+</Note>
+
+## Snowflake Connections
+
+### Ingestion Connection
+
+This connection type links Ingestion with the Snowflake destination for running ingestion jobs on deployment.
+
+| Variable            | Description                                                                                | Identifier                                                                       |
+|---------------------|--------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------|
+| Connection name     | The Ingestion connection name                                                              | Default name is `INGESTION` if not specified                                     |
+| Snowflake account   | Prefilled Snowflake account configured during onboarding                                   | -                                                                                |
+| Default role        | The default warehouse role for Ingestion when running queries                              | Default role is `INGESTION_ROLE` if not specified                                |
+| Default database    | The default database for running queries in development                                    | Default database is `RAWDATA_DB` if not specified                                |
+| Authentication type | The authentication method for Ingestion to access the Snowflake account                    | Supports **username and password**, and **key pair** authentication               |
+
+### Orchestration/Jobs Connection
+
+This connection allows **Jobs** to connect to the Snowflake destination for orchestration tasks.
+
+| Value               | Description                                                                                | Identifier                                                                       |
+|---------------------|--------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------|
+| Connection name     | The user-defined orchestration connection name                                             | Must start with a letter/underscore, contain only letters, numbers, underscores |
+| Snowflake Account   | Prefilled Snowflake account configured during onboarding                                   | -                                                                                |
+| Default Role        | The default warehouse role for running queries                                             | Highest privilege role used if not specified                                     |
+| Default warehouse   | The default warehouse for query deployment                                                 | Default is `<compute_wh>` if not specified                                       |
+| Authentication Type | The authentication method to access the Snowflake account                                  | Supports username/password and key pair authentication                           |
+
+### Business Intelligence Connection
+
+This connection type links BI capabilities with the Snowflake warehouse destination.
+
+| Value               | Description                                                                                | Identifier                                                                       |
+|---------------------|--------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------|
+| Connection name     | The user-defined BI connection name                                                        | Must start with a letter/underscore, contain only letters, numbers, underscores |
+| Snowflake Account   | Prefilled Snowflake account configured during onboarding                                   | -                                                                                |
+| Default Role        | The default warehouse role for running queries                                             | Highest privilege role used if not specified                                     |
+| Default warehouse   | The default warehouse for query deployment                                                 | Default is `<compute_wh>` if not specified                                       |
+| Authentication Type | The authentication method to access the Snowflake account                                  | Supports username/password and key pair authentication                           |
+
+<Note>
+BI is available if included in your current plan. Upgrade to BI [here](#). 
+</Note>
+
+## BigQuery Connections
+
+### Ingestion Connection
+
+This connection type links Ingestion with the Google BigQuery destination for running ingestion jobs on deployment.
+
+| Variable          | Description                                                            | Identifier                                                                       |
+|-------------------|------------------------------------------------------------------------|----------------------------------------------------------------------------------|
+| Connection name   | The Ingestion connection name                                          | Must start with a letter/underscore, contain only letters, numbers, underscores |
+| Upload File       | A [Service Account](/Overview/get-started) Key JSON file for authentication | - |
+| Project Id        | The Google Cloud Project ID where BigQuery is set up                   | Select from available projects dropdown                                          |
+| Dataset Location  | The location of the BigQuery dataset                                   | Select from available locations dropdown                                         |
+
+<Note>
+The Service Account Key is a secure digital credential that allows applications or services to authenticate and access Google Cloud resources on behalf of a project.
+</Note>
+
+<Info> 
+When adding a [Service Account](/Overview/get-started) for ingestion, add the following role:
+- BigQuery User [Allows write access to dataset]
+</Info>
+
+### Job (Orchestration) Connection
+
+This connection allows **Jobs** to connect to the Google BigQuery destination for orchestration tasks.
+
+| Value           | Description                                                            | Identifier                                                                       |
+|-----------------|------------------------------------------------------------------------|----------------------------------------------------------------------------------|
+| Connection name | The user-defined job connection name                                   | Must start with a letter/underscore, contain only letters, numbers, underscores |
+| Upload File     | A [Service Account](/Overview/get-started) Key JSON file for authentication | - |
+| Project Id      | The Google Cloud Project ID where BigQuery is set up                   | Select from available projects dropdown                                          |
+| Dataset Name    | The name of the dataset to use for job data                            | Enter the dataset name                                                           |
+| dbt version     | The version of dbt to use for transformations                          | Select from available versions dropdown                                          |
+
+<Info>
+When adding a [Service Account](/Overview/get-started) for jobs, add the following roles:
+- BigQuery User [Allows querying and viewing dataset metadata]
+- BigQuery Read Session User [Enables creation and use of read sessions for optimized data access]
+- BigQuery Job User [Permits running jobs including queries, loads, extracts, and copies]
+</Info>
+
+### Business Intelligence Connection
+
+This connection type links BI capabilities with the BigQuery warehouse destination.
+
+| Value           | Description                                                            | Identifier                                                                       |
+|-----------------|------------------------------------------------------------------------|----------------------------------------------------------------------------------|
+| Connection name | The user-defined BI connection name                                    | Must start with a letter/underscore, contain only letters, numbers, underscores |
+| Upload File     | A [Service Account](/Overview/get-started) Key JSON file for authentication | - |
+| Project Id      | The Google Cloud Project ID where BigQuery is set up                   | Select from available projects dropdown                                          |
+
+<Info>
+When adding a [Service Account](../Overview/set-up-5x-workspace#setup-process-1) for BI, add the following roles:
+- BigQuery User [Allows querying and viewing dataset metadata]
+- BigQuery Data Viewer [Provides read access to data in datasets and tables]
+- BigQuery Metadata Viewer [Enables viewing metadata of datasets, tables, and views]
+</Info>
+
+## Managing Connections
+
+### New Connections
+
+1. Navigate to **App connections** from **Settings**. 
+2. Select **New Connection** on the top-right corner of the page. 
+3. Select the connection type and configure the account details as required. 
+   For existing accounts, use the script on the right panel to run on the [IDE](/IDE/about). 
+   
+<Note>
+   - The connection name must start with a letter or underscore and contain only letters, numbers, or underscores.
+   - You must have an AccountAdmin warehouse role. 
+</Note>
+
+4. Click **Connect** on the top-right corner of the page. 
+5. Click **Complete** if the connection is successful. If it fails, check the error logs and click **Try Again**. 
+
+![app2](/images/app2.png)
+
+### Current App Connections
+
+The current production connections are listed on the **App connections** page with their current state. 
+An **active** state indicates a successful connection. **Broken** connections should be [tested](#test-connection).
+
+### Edit Connection
+
+1. Edit a configured connection from:
+   - The **three-dot** menu on the App connections page, or 
+   - Select **Edit** on the top-right corner of a connection's preview mode page. 
+2. Click **Save Changes** on the top-right corner of the Edit connection page. 
+
+![app4](/images/app4.png)
+
+### Duplicate Connection
+
+1. Select **Duplicate** from the **three-dot menu** of a connection type. 
+2. Enter the password or private key for authentication as required. 
+3. Click **Connect** on the top-right corner. 
+
+![app5](/images/app5.png)
+
+### Test Connection
+
+1. Select **Test connection** from the **three-dot menu** of a connection type.
+2. Review results once testing is complete. Click **Complete** for successful tests or check error logs and **Try Again** for failures. 
+
+![app6](/images/app6.gif)
+
+### Delete Connection
+
+1. Select **Delete** from the **three-dot** menu of a connection type.
+2. Confirm deletion in the pop-up. This action is permanent and irreversible.
