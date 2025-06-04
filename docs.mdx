@@ -1,0 +1,73 @@
+---
+title: 'Docs'
+description: 'Enable and configure **dbt docs** to maintain a comprehensive reference of your data models, lineage, tables and transformations on your 5X workspace.'
+---
+
+<Frame>
+<video
+  src="https://docs.5x.co/assets/medias/dbtDocs-8e400b952e1f5ce9147708b287335c4e.mp4"
+  controls
+>
+</video>
+</Frame>
+
+## Prerequisites
+- Must have a dbt repository connected to your 5X IDE with a .yml file for [documentation](https://docs.getdbt.com/reference/resource-properties/description)
+- Must be an **Admin** or **Developer**
+
+## Set up dbt documentation 
+Create a new job to generate dbt documentation:
+
+### Step 1: Add trigger
+1. Navigate to **Jobs** and click **+ New Job** from the top-right corner.
+2. Click **+ Add block** to add a Scheduled Trigger node:
+  - Enter trigger **name** (e.g., "docs_trigger")
+  - Configure the trigger schedule
+  - Click **Save Triggers**
+
+
+### Step 2: Add dbt task 
+Configure a dbt task to generate documentation:
+
+1. Click **+ Add block** and select **Modeling** task type.
+2. Configure the task parameters:
+3. Click **Save Task**
+
+![Configure dbt task](/images/dbt_jobs.png)
+
+
+### Step 3: Deploy job
+1. Click **Save Job** from the top-right corner.
+2. Select the production environment
+3. Click **Save**.
+
+### Step 4: Configure docs settings
+Navigate to **Settings** > **Docs** to configure:
+
+1. Navigate to the **Docs** section of Settings from the left navigation bar.
+2. Click on **Set Default** for the Repo you want to see the dbt Docs for and choose which job and node will update your dbt docs.
+3. Enable the toggle to look at dbt Docs in the left Navbar saying **Show docs in Navbar**
+
+![Configure dbt task](/images/Default_Doc.png)
+
+## Access dbt Documentation 
+
+### Direct access
+1. Navigate to the **Docs** section from the left navigation bar.
+2. Select your repository if multiple are configured.
+
+### Settings
+1. Navigate to the **Docs** section of Settings from the left navigation bar.
+2. Click on **View** part from the list of repos listed.
+
+<Note>  
+Documentation automatically updates whenever your configured job runs. For immediate updates, you can manually trigger the documentation job.
+</Note>
+
+## Troubleshooting
+
+| Issue | Solution |
+|-------|----------|
+| Documentation not updating | - Check job run logs <br/>- Verify job execution status<br/>- Test connection |
+| Missing documentation | - Check model `.yml` files<br/>- Verify dbt project structure |
+

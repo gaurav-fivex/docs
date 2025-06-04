@@ -125,6 +125,20 @@
                   }
                 ]
               },
+              "data-apps",
+              "docs",
+              "team",
+              {
+                "group": "Settings",
+                "pages": [
+                  "Settings/app-connections",
+                  "Settings/credentials",
+                  "Settings/environments",
+                  "Settings/alerts",
+                  "Settings/my-profile",
+                  "Settings/billing"
+                ]
+              },
               "architecture"
             ]
           }
