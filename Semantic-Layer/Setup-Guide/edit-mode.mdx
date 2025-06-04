@@ -1,5 +1,84 @@
 ---
-title: 'New file'
-description: 'Description of your new file.'
+title: "Edit Mode"
 ---
 
+# Edit Mode
+
+<div className="hero-banner" style={{ backgroundColor:"#f0f8ff",padding:"20px",borderRadius:"8px" }}>
+<div className="hero-content">
+<p className="hero-text" style={{ fontSize:"1.5em",fontWeight:"bold",color:"#333" }}>
+Safely develop and test semantic layer changes in an isolated environment before deploying to production.
+
+</p>
+
+</div>
+
+</div>
+
+## Prerequisites
+
+- Active Semantic Layer project
+- Git repository configured
+
+## Overview
+
+Development Mode provides an isolated environment where you can:
+
+- **🔄 Iterate Safely**: Make changes without affecting production metrics.
+- **🧪 Test Changes**: Access development endpoints to validate modifications.
+- **📝 Track Changes**: Manage versions with integrated Git workflow.
+- **👥 Collaborate**: Work with team members using feature branches.
+
+## Using Development Mode
+
+### 1. Entering Dev Mode
+
+1. Click the "Dev Mode" toggle in the top navigation.
+2. Select or create a development branch.
+3. Wait for environment switch confirmation.
+
+<Frame>
+  ![Enter Edit Mode](/images/semantic-dev-mode-toggle.png)
+</Frame>
+
+<Tip>
+  Create descriptive branch names like `feature/new-sales-metrics` or `fix/revenue-calculation`.
+</Tip>
+
+### 2. Making Changes
+
+- **Edit Definitions**: Modify metrics, dimensions, and relationships.
+- **Auto-Save**: Changes are automatically saved to your branch.
+- **Preview**: Test changes using development endpoints.
+
+### 3. Version Control
+
+The IDE provides integrated Git workflows:
+
+- Create feature branches.
+- Commit changes with descriptive messages.
+- Open pull requests for review.
+- Merge approved changes to main.
+
+<Frame>
+  ![Semantic Layer Git Integration](/images/semantic-version-control.png)
+</Frame>
+
+### 4. Conflict Resolution
+
+When merge conflicts occur:
+
+1. Use the visual diff viewer to inspect conflicts.
+2. Choose between incoming and current changes.
+3. Manually edit if needed.
+4. Mark conflicts as resolved.
+5. Complete the merge.
+
+## Best Practices
+
+- **Branch Management**: Keep branches focused and short-lived. Merge from main regularly.
+- **Testing**: Validate metrics, check query performance, and test edge cases thoroughly.
+
+## Next Steps
+
+- [Explore the Semantic Layer Playground](/Semantic-Layer/Setup-Guide/query-playground)
