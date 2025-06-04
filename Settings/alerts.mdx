@@ -1,5 +1,101 @@
 ---
-title: 'New file'
-description: 'Description of your new file.'
+title: 'Alerts'
 ---
+
+**Alerts** inform you about real-time changes across your **5X workspace**.
+
+[Admins](/Team/rbac.mdx) and [developers](/Team/rbac.mdx) can remain proactive by integrating platform-level alerts to receive notifications externally via Slack or email. 
+
+<Frame>
+<video
+  src="https://docs.5x.co/assets/medias/Alerts-238c85e6a161338bf72aeb30a5dc4414.mp4"
+  controls
+>
+</video>
+</Frame>
+
+## Connecting Slack
+
+1. Go to **Settings → Alerts**
+2. Click the **Integrations** button in the top-right corner
+
+![slack-integration](/images/Slack_Integration.png)
+
+3. You'll see "Slack isn't connected yet" message
+
+![slack-no -integration](/images/Slack_No_Integration.png)
+
+4. Click the **Connect Slack** button
+5. A Slack authorization window will open showing:
+   - "5X Alerts is requesting permission to access the [Workspace Name] Slack workspace"
+   - What 5X Alerts will be able to view:
+     - Content and info about channels & conversations
+     - Content and info about your workspace
+   - What 5X Alerts will be able to do:
+     - Perform actions in channels & conversations
+
+![slack-confirmation](/images/Slack_confirmation.png)
+
+6. Click **Allow** to connect
+
+## Setting Up Alerts
+
+### A. Job Alerts
+
+1. Go to **Settings → Alerts**
+2. Click the **New Alert** button
+3. Fill in the settings:
+   - **Alert Name**: Enter a name (e.g., "Job Alerts")
+   - **Type**: Select "Jobs"
+   - **Jobs**: Choose the specific job
+   - **Select Channel**: Choose your Slack channel
+   - **Email**: Add email address (optional)
+4. Choose notification triggers:
+   - Toggle "Job failed" on/off
+   - Toggle "Job success" on/off
+5. Click **Set Alert** to save
+
+![slack-confirmation](/images/Job_alert.png)
+
+#### Alternative Method for Job Alerts
+1. Go to the Jobs page
+2. Click the bell icon next to any job
+3. Configure the alert settings as above
+
+![slack-confirmation](/images/job_page.png)
+
+### B. Ingestion Alerts
+
+#### Create a New Ingestion Alert
+1. Go to **Settings → Alerts**
+2. Click the **New Alert** button
+3. Fill in the settings:
+   - **Alert Name**: Enter a name (e.g., "Ingestion Alert")
+   - **Type**: Select "Ingestion"
+   - **Connector**: Choose the specific connector to monitor
+   - **Select Channel**: Choose your Slack channel
+   - **Email**: Add email address (optional)
+4. Choose notification triggers:
+   - Toggle "Sync successful" on/off
+   - Toggle "Sync failed" on/off
+5. Click **Set Alert** to save
+
+![slack-confirmation](/images/Ingestion_alert.png)
+
+
+## Delete an Alert
+1. Open the alert.
+2. Click "Delete this alert"
+3. In the confirmation popup:
+   - Click "Delete" to remove the alert
+   - Click "Go back" to cancel
+
+## Update an Alert
+1. Open the existing alert
+2. Modify any settings:
+   - Add/change Slack channels
+   - Add/change email notifications
+   - Update alert triggers
+3. Save your changes
+
 
