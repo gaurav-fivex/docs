@@ -65,7 +65,7 @@
                   "IDE/about",
                   "IDE/sql",
                   {
-                    "group": "dbt™️ Modelling",
+                    "group": "dbt™️ Modeling",
                     "pages": [
                       "IDE/DBTModeling/dbt",
                       "IDE/DBTModeling/project-structure",
