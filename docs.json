@@ -115,12 +115,12 @@
                   {
                     "group": "Setup-Guide",
                     "pages": [
-                      "Setup-Guide/getting-started-sl",
-                      "Setup-Guide/connection-config",
-                      "Setup-Guide/creating-project",
-                      "Setup-Guide/getting-started-dm",
-                      "Setup-Guide/edit-mode",
-                      "Setup-Guide/query-playground"
+                      "Semantic-Layer/Setup-Guide/getting-started-sl",
+                      "Semantic-Layer/Setup-Guide/connection-config",
+                      "Semantic-Layer/Setup-Guide/creating-project",
+                      "Semantic-Layer/Setup-Guide/getting-started-dm",
+                      "Semantic-Layer/Setup-Guide/edit-mode",
+                      "Semantic-Layer/Setup-Guide/query-playground"
                     ]
                   }
                 ]
