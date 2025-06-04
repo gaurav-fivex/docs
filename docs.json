@@ -140,7 +140,9 @@
                   "Settings/billing"
                 ]
               },
-              "architecture"
+              "architecture",
+              "utilization",
+              "compliance"
             ]
           }
         ]

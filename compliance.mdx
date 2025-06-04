@@ -1,0 +1,95 @@
+---
+title: 'Security and Compliance'
+---
+
+5X does not store customer data. We operate as a secure layer on top of your chosen data warehouse (e.g., Snowflake, Google BigQuery). This means:
+
+- **Your data stays put:** All your business data only remains in your data warehouse.
+- **5X only handles metadata:** 5X stores and processes only the essential metadata (e.g., user info, encrypted connection details, usage stats) needed to run our platform efficiently.
+
+This approach gives you the full power of 5X's end-to-end data platform while keeping your data firmly under your control.
+
+## Types of Data Collected by 5X
+
+- **Personal Data:** Names, email addresses, and other contact information, from users of the 5X platform to facilitate communication and service delivery.
+- **Usage Metadata:** Our platform gathers metadata, including IP addresses, browser types, and device details, to optimize user experience and enhance security.
+- **Analytics Data:** We leverage aggregated, anonymized data to continuously refine our services. 
+- **Financial Data:** For payment processing, we rely on Stripe's secure platform, ensuring that sensitive financial information is never stored on our servers.
+
+## Data Processing Activities
+
+### Data Collection
+5X collects only customer metadata, including usernames, emails, warehouse account details etc. Your primary data resides in the customer's data warehouse (e.g., Snowflake, Google BigQuery).
+
+### Data Usage
+Collected data is used strictly for service provision, user experience enhancement, and analytics—always within the bounds of customer consent.
+
+### Third-Party Service Providers
+We utilize select third-party sub-processors to support our data processing operations. All third-party engagements are governed by robust Data Processing Agreements, ensuring they maintain the same high standards of data protection as 5X.
+
+### Data Retention
+The retention period for collected data varies based on its type and purpose:
+
+- **Account information:** Retained for the duration of the customer's active account, plus a grace period after account closure for potential reactivation.
+- **Usage data:** Retained for 12 months to support trend analysis and service improvement.
+- **Financial data:** Retained in accordance with legal and regulatory requirements, typically 7 years
+
+> DPA: https://www.5x.co/data-processing-addendum
+
+### Data Deletion
+We have implemented robust procedures for the proper deletion and disposal of data:
+
+- **Automated Deletion:** Data that has exceeded its retention period is automatically flagged for deletion by our system.
+- **Secure Erasure:** We use industry-standard secure erasure methods to ensure that deleted data cannot be recovered.
+- **Hardware Disposal:** When hardware is decommissioned, we use certified data destruction services to ensure all data is irrevocably destroyed.
+- **Customer Requests:** Upon customer request, we can initiate an immediate data deletion process, ensuring all customer data is removed from our systems within 30 days.
+
+## Data Storage Locations
+
+| Edition | Data Center Region |
+|---------|---------------------|
+| Standard Edition | AWS US East 1 (North Virginia) |
+| Enterprise Edition | AWS US East 1 (North Virginia)<br />AWS EU Central 1 (London)<br />AWS AP South 1 (Mumbai)<br />Other regions are being added |
+
+## Security Measures
+
+### Network Security
+
+- **Firewalls:** Our network is protected by multi-layered firewalls, designed to thwart unauthorized access attempts and provide an additional security perimeter.
+- **Secure VPN Access:** Access to sensitive databases is controlled via an internal private VPN, available only to authorized personnel, ensuring secure and encrypted connections.
+
+### Application Security
+
+#### Identity Management
+We utilize Auth0 as our Identity Provider, providing secure and seamless authentication for all users.
+
+#### Password Policy
+5X implements a robust password policy to ensure account security:
+- Minimum 8 characters with a mix of uppercase, lowercase, numbers, and special characters
+- Secure password storage using Bcrypt hashing algorithm.
+
+#### Access Control
+5X implements a robust and flexible access control system:
+- **Granular Permissions:** Our platform supports highly customizable, fine-grained access controls, allowing organizations to define and manage user permissions at a granular level.
+- **Custom Role Creation:** Customers have the ability to create and configure custom roles tailored to their specific organizational needs and security requirements.
+
+#### Encryption
+All data transmissions are secured with HTTPS, and sensitive data at rest is protected using the AES-256 encryption algorithm. The encryption keys are rotated at regular intervals to ensure ongoing security.
+
+#### Regular Audits and Security Testing
+As part of our SOC 2 Type II compliance, we conduct frequent security audits and rigorous testing to proactively identify and address vulnerabilities. This includes:
+
+- **Vulnerability Assessments:** Quarterly scans to identify potential security weaknesses in our systems.
+- **Penetration Testing:** Annual testing that simulates real-world attacks to ensure our defenses are robust.
+- **Network Security Assessments:** Quarterly assessments of both internal and external networks to prevent unauthorized access.
+- **Web Application Security Testing:** Regular testing to protect against common web vulnerabilities such as SQL injection and cross-site scripting (XSS).
+- **Incident Response Testing:** Annual drills to ensure our incident response plan is effective and up-to-date.
+
+## Compliance and Certifications
+
+- **SOC 2 Type II:** Our commitment to security, availability, and confidentiality is validated through SOC 2 Type II certification, ensuring our practices meet the highest industry standards.
+- **GDPR:** We adhere to GDPR requirements, ensuring that our data protection practices align with the regulations. Our processes fully comply with GDPR standards.
+
+For more information, access to our compliance reports etc, please visit our [Trust Center](https://trust.5x.co/).
+
+For any security-related inquiries or concerns, please reach out to our dedicated security team at datasecurity@5x.co
