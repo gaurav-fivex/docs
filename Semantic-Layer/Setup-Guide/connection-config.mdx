@@ -1,5 +1,171 @@
 ---
-title: 'New file'
-description: 'Description of your new file.'
+title: "Connection Configuration"
+description: "Set up secure and performant connections between your Semantic Layer and data warehouse to unlock the full potential of your data."
 ---
 
+<div className="prerequisites-container">
+<div className="prerequisite-card">
+<h3>
+👤 Access Rights</h3>
+
+<div className="card-content">
+<ul>
+<li>
+Admin or Developer role access</li>
+
+
+<li>
+Warehouse credentials with appropriate permissions</li>
+
+</ul>
+
+</div>
+
+</div>
+
+<div className="prerequisite-card">
+<h3>
+🔑 Warehouse Setup</h3>
+
+<div className="card-content">
+<ul>
+<li>
+Valid warehouse credentials</li>
+
+
+<li>
+Network access configured</li>
+
+
+<li>
+Required permissions granted</li>
+
+</ul>
+
+</div>
+
+</div>
+
+<div className="prerequisite-card">
+<h3>
+📚 Knowledge</h3>
+
+<div className="card-content">
+<ul>
+<li>
+Basic understanding of your warehouse configuration</li>
+
+
+<li>
+Familiarity with connection parameters</li>
+
+</ul>
+
+</div>
+
+</div>
+
+</div>
+
+## Setup Process
+
+<div className="setup-flow">
+<div className="setup-step">
+<h3>
+1. Navigate to Connections</h3>
+
+
+<p>
+Go to Settings \> App Connections
+
+ in your 5X workspace</p>
+
+</div>
+
+<div className="setup-step">
+<h3>
+2. Add New Connection</h3>
+
+
+<p>
+Click "Add New Connection" and select "Semantic Layer" as the type</p>
+
+</div>
+
+<div className="setup-step">
+<h3>
+3. Configure Details</h3>
+
+
+<p>
+Enter connection name, select warehouse type, and provide credentials</p>
+
+</div>
+
+<div className="setup-step">
+<h3>
+4. Set Up Environment</h3>
+
+
+<p>
+Configure an environment using your new connection</p>
+
+</div>
+
+</div>
+
+## Environment Configuration
+
+After creating your connection, set up an environment:
+
+1. Navigate to **Settings \> Environments**
+2. Click "Add Environment"
+3. Provide:
+   - Environment name
+   - Select your Semantic Layer connection
+4. Save the configuration
+
+:::important
+Both connection and environment setup must be completed before creating a Semantic Layer project.
+:::
+
+## Security Best Practices
+
+- **Service Accounts**: Use dedicated service accounts instead of personal credentials
+- **Least Privilege**: Grant minimum required permissions for security
+- **Regular Rotation**: Implement credential rotation policies
+
+## Troubleshooting
+
+If you encounter any issues during setup:
+
+### Connection Failed
+
+1. Verify credentials and permissions
+2. Check network connectivity
+3. Ensure firewall rules allow access
+
+### Authentication Errors
+
+1. Confirm role assignments
+2. Verify warehouse permissions
+3. Check key pair configuration
+
+### Environment Issues
+
+1. Validate connection settings
+2. Confirm warehouse availability
+3. Check resource access permissions
+
+<Tip>
+  Support
+  If issues persist after trying these steps, contact support with specific error messages for faster resolution.
+</Tip>
+
+## Next Steps
+
+After completing the connection setup:
+
+- [Create Your First Project](/Semantic-Layer/Setup-Guide/creating-project.mdx)
+- [Get Started with Data Modeling](/Semantic-Layer/Setup-Guide/getting-started-dm.mdx)
+- [Use Edit Mode](/Semantic-Layer/Setup-Guide/edit-mode)
