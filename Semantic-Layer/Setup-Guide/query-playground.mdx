@@ -1,5 +1,154 @@
 ---
-title: 'New file'
-description: 'Description of your new file.'
+title: "Query Playground"
+description: ""
 ---
 
+<div className="hero-banner" style={{ backgroundColor: '#f0f8ff', padding: '8px', borderRadius: '8px' }}>
+  <div className="hero-content">
+    <p className="hero-text" style={{ fontSize: '1.5em', fontWeight: 'bold', color: '#333', marginTop: '0px', marginBottom: '0px' }}>
+      Validate your semantic models and explore data relationships in an interactive query environment.
+    </p>
+  </div>
+</div>
+
+## Overview
+
+The Playground is your interactive workspace for testing and validating semantic models. It provides a user-friendly interface to:
+
+- 🔍 Browse and search your data model entities
+- 📊 Compose queries with measures and dimensions
+- 🎯 Apply and manage complex filters
+- 📈 Preview query results in real-time
+- 🔬 Examine the compiled SQL
+
+## Accessing the Playground
+
+
+Access the Playground through the cube icon in the left sidebar of your Semantic Layer project:
+
+1. Open your Semantic Layer project
+2. Look for the cube icon (📊) in the left navigation panel
+3. Click to open the Playground interface
+
+<Frame>
+  ![Semantic Layer Playground Access](/images/playground-access.png)
+</Frame>
+
+<Tip>
+You can quickly toggle between different views using the tabs at the top of the sidebar.
+</Tip>
+
+## Interface Components
+
+The Playground interface consists of four main components:
+
+### 📚 Model Browser
+The hierarchical navigator for your data model that lets you:
+- Browse through available cubes and views
+- Access measures and dimensions
+- Search and filter model elements
+- View entity relationships and metadata
+
+### 🎯 Query Builder
+A powerful interface for query construction with:
+- Drag-and-drop measure and dimension selection
+- Filter configuration panel
+- Time granularity controls
+- Aggregation settings
+- Query parameter management
+
+### 📊 Results View
+Real-time data visualization and analysis features:
+- Interactive data grid display
+- Column sorting and filtering
+- Export capabilities (CSV, JSON)
+- Result set pagination
+- Quick data summaries
+
+### 💻 SQL Preview
+Advanced query inspection tools including:
+- Generated SQL code display
+- Query optimization hints
+- Execution plan visualization
+- Performance metrics
+- Query history tracking
+
+<Frame>
+<video
+  src="https://docs.5x.co/assets/medias/semantic-playground-2627377d22554a529dae4b18bc004841.mp4"
+  controls
+>
+</video>
+</Frame>
+
+
+## Building Queries
+
+The Semantic Layer Playground provides an intuitive interface for building and analyzing data queries. This section guides you through the essential steps of query construction, from selecting data objects to reviewing results.
+
+### 🔍 Selecting Data Objects
+Build the foundation of your query by choosing the relevant data elements:
+
+**From the Model Browser:**
+- Browse or search for relevant measures and dimensions
+- Drag elements into the query builder, or click to add
+- Use the search functionality for quick access to specific elements
+
+> 💡 **Pro tip:** Use the search bar's autocomplete feature to quickly find specific metrics or dimensions
+
+### 🎯 Configuring Filters
+Refine your query results with precise filtering:
+
+- Click the "Add Filter" button in the query builder
+- Select your target dimension
+- Choose from available operators (equals, contains, greater than, etc.)
+- Set your filter values
+- Use AND/OR operators to create complex filter logic
+
+> 💡 **Pro tip:** Start with broader filters and gradually add constraints to ensure data quality
+
+### ⏰ Time-Based Analysis
+Analyze trends and patterns across different time periods:
+
+- Choose relevant time dimensions for your analysis
+- Select appropriate time granularity:
+  - Year: Annual trends
+  - Quarter/Month: Seasonal patterns
+  - Week/Day: Detailed analysis
+- Apply time-based filters and comparisons
+
+> 💡 **Pro tip:** Consider using relative time ranges (last 30 days, current quarter, etc.) for dynamic analysis
+
+### 📊 Executing and Reviewing
+Validate and analyze your query results:
+
+- Execute your query using the "Run Query" button
+- Review results in the interactive data grid
+- Examine the generated SQL to understand the underlying query structure
+
+> 💡 **Pro tip:** Always review the generated SQL to ensure optimal query performance
+
+<Note>
+For complex queries, consider breaking them down into smaller, focused analyses to improve performance and maintainability.
+</Note>
+
+## Working with Tabs
+
+Manage multiple queries simultaneously:
+
+- Create new query tabs with the + button
+- Switch between tabs to compare results
+- Save important queries for reference
+- Share queries with team members
+
+## Best Practices
+
+- Start with simple queries and gradually add complexity
+- Use filters to limit result sets for better performance
+- Review generated SQL to understand query patterns
+- Save frequently used queries as templates
+- Document queries with clear descriptions
+
+<Note>
+For complex analytics needs, consider connecting your semantic layer to 5X's [Business Intelligence tools](/Business-Intelligence/bi.mdx).
+</Note>
