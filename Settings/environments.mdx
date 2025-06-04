@@ -1,5 +1,68 @@
 ---
-title: 'New file'
-description: 'Description of your new file.'
+title: 'Environments'
 ---
 
+**Environments** help you access the [core capabilities](/Overview/features) of your workspace. Navigate to Environment from Settings. 
+
+An environment maintains separate configurations in the data warehouse to interact with data sources and databases for developing and deploying data projects. You can retrieve, build, manage and execute data when handling projects using separate environment types. 
+5X supports a [single development environment](#development-environment-default) and [multiple production environments](#production-environments) for every workspace. 
+
+## Development environment (default)
+The default development environment is created when you set up and connect using [Credentials](/Settings/credentials).  It provides access to interact with code programmatically without impacting the end users from the IDE. 
+Connect with the IDE: 
+- To [write and develop SQL queries for your warehouse](/IDE/sql)
+- Develop [dbt models](/IDE/DBTModeling/dbt) 
+- Develop Python repositories  
+
+![env1](/images/env1.png)
+
+<Info>
+Important points about the development environment:
+- The default environment uses the same configuration parameters ( version, database and schema) as credentials. 
+- 5X supports a single development environment for a workspace. The development credentials provide user-level access to the IDE and project collaboration using Git.  
+</Info>
+
+## Production environments
+The environment used to deploy **data pipeline**, i.e., [Jobs](/Orchestration/jobs) to the end user by pushing changes to production, i.e., the **main (original)** repository. 
+- You can add multiple production environments and connect to them using the [Job connection type](/Settings/app-connections) to [deploy pipelines](/Orchestration/deploy). 
+- You must have at least one production environment to [save and publish Jobs](/Orchestration/deploy). 
+
+<Info>
+The deployment environment creates an instance on top of your Ingestion, dbt and Python
+Jobs based on the warehouse and schema settings configured in your app connection. 
+</Info>
+
+### Add
+1. Navigate to **Environment** from **Settings**.
+2. Click **Add Environment** on the top-right corner of the page. 
+3. Enter the environment **name**. 
+4. Select the [Job connection](/Settings/app-connections) to use for connecting to the deployment environment from the **App Connection dropdown** and **Save Changes**. 
+
+![env2](/images/env2.gif)
+
+## Update & delete 
+1. Click on the production environment you want to update or delete. 
+2. Click **Edit Environment** to update its name and app connection, and **Save Changes**. 
+3. Click **Delete** to delete the production connection. 
+
+## Environment Variable 
+
+You can create and manage environment variables from the **Environment Variable** tabs. Environment variables allow for flexible, secure, and environment-specific configuration, ensuring that sensitive information is not exposed in your [GitHub](/IDE/github) repository. This approach enhances security and easier configuration changes across different environments (like development, staging, and production).
+
+In your dbt model or macro, you can use: 
+
+```sql
+{{ config(
+    materialized='table',
+    schema=env_var('DBT_SCHEMA', 'default_schema')  -- default value if not set
+) }}
+
+SELECT *
+FROM my_table
+WHERE user = '{{ env_var("DBT_USER") }}'
+```
+
+1. Navigate to **Settings** > **Environment** > **Environment Variables**. 
+2. Click **+Add Variables**.
+3. Enter the **key**, **development environment variable** and **production value**. 
+4. Click **Save Change**s.

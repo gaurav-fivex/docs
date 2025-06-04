@@ -131,6 +131,7 @@
               {
                 "group": "Settings",
                 "pages": [
+                  "Settings/settings",
                   "Settings/app-connections",
                   "Settings/credentials",
                   "Settings/environments",
