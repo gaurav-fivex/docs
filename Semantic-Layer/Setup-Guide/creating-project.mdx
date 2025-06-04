@@ -1,5 +1,99 @@
 ---
-title: 'New file'
-description: 'Description of your new file.'
+title: "Creating a Project"
+description: ""
 ---
 
+# Creating a Semantic Layer Project
+
+This guide will help you set up your first Semantic Layer project in the 5X platform. The Semantic Layer centralizes your metrics definitions, standardizes data access, and creates a foundation for AI-ready analytics.
+
+## Navigate to the Semantic Layer Section
+
+From your 5X workspace, click on Semantic Layer in the left navigation menu. This will take you to the Semantic Layer home page.
+
+## Initiate Project Creation
+
+There are two ways to create a new project:
+
+1. **For First-Time Users**:
+   - On the Semantic Layer home page, click the "Create New Project" button in the center of the screen
+2. **For Existing Projects**:
+   - Click on the projects listing dropdown in the top-left corner of the Semantic Layer page
+   - Select "\+ New Project" from the dropdown menu
+
+<Frame>
+  ![Semantic Layer Projects Listing](/images/semantic-create-project.gif)
+</Frame>
+
+<Tip>
+  The projects listing dropdown allows you to switch between existing projects and create new ones, all from the same convenient location.
+</Tip>
+
+## Configure Your Project
+
+In the "New project" dialog, you'll need to configure the following settings:
+
+**Project Name**\
+Enter a descriptive name for your Semantic Layer project that clearly identifies its purpose.
+
+_Examples: Sales Metrics, Marketing Analytics, Finance Dashboard_
+
+**Repository Type**\
+Choose between two repository options:
+
+_5X Managed (Recommended)_
+
+- Let 5X handle version control and storage
+- Provide a Repo name for your semantic layer definitions
+- Simplified setup and maintenance
+
+_GitHub_
+
+- Connect to your own GitHub repository
+- Requires GitHub URL
+- Optional: Specify subdirectory path
+
+<Info>
+  When importing an existing repository, ensure it follows the Cube project structure. The Semantic Layer requires specific file organization and configuration files to function correctly.
+</Info>
+
+**Environment**\
+Select the environment that defines your warehouse connection settings:
+
+- Warehouse instance configuration
+- Connection credentials
+- Access parameters
+
+<Tip>
+  Need a new environment? Configure one in **Settings \> Environments**
+</Tip>
+
+## Finalize Project Creation
+
+Once you've entered all the required information, click the Add Project button to create your Semantic Layer project.
+
+## What's Next?
+
+After creating your Semantic Layer project, you can proceed with:
+
+- [Getting Started with Data Modeling](./data-modeling.md): Learn how to transform raw data into meaningful business definitions
+
+<Note>
+  You don't need to explicitly connect to data sources as a separate step, since the environment you selected during project setup already contains the necessary warehouse connection configurations.
+</Note>
+
+## Best Practices for Project Setup
+
+- **Organize by business domain**: Consider creating separate projects for different business areas (sales, marketing, finance)
+- **Use descriptive naming**: Choose clear, consistent names for your projects and repositories
+- **Plan for scale**: Set up your project with future growth in mind
+- **Document as you go**: Add descriptions to your project and maintain documentation of your semantic definitions
+
+## Troubleshooting
+
+If you encounter issues during project setup:
+
+- **Environment not listed**: Go to Settings \> Environments to add a new environment
+- **Repository connection issues**: Verify your GitHub credentials and repository URL
+- **Permission errors**: Ensure your 5X account has the necessary permissions to create projects
+- **Invalid repository structure**: When importing from GitHub, make sure your repository follows the Cube project structure
