@@ -140,7 +140,10 @@
         "tab": "Release Notes",
         "pages": [
           "release_update/overview",
-          "release_update/August24"
+          "release_update/August24",
+          "release_update/September24",
+          "release_update/October24",
+          "release_update/November24"
         ]
       }
     ],

@@ -1,5 +1,5 @@
 ---
-title: August 2024
+title: "August 2024"
 ---
 
 ## New feature
@@ -10,33 +10,38 @@ We’re excited to announce the **Alerts** feature informs about real-time chang
 
 - Real-time notifications and customizable workspace alert preferences.
 - Get notified of the following [workspace alerts](https://docs.5x.co/Settings/Alerts#workspace-alerts):
-	- **Ingestion**: When a sync is successful, sync fails, source connection or app connection fails.
-	- **Jobs**: When a job run succeeds or fails.
+  - **Ingestion**: When a sync is successful, sync fails, source connection or app connection fails.
+  - **Jobs**: When a job run succeeds or fails.
 - Flexible notification channels: Choose between **Slack** or **email** notifications based on your preference.
 
 #### How to use Alerts
+
 <Steps>
   <Step>
-    Navigate to **Settings** > **Alerts** in your workspace.
+    Navigate to **Settings** \> **Alerts** in your workspace.
   </Step>
   <Step>
     Configure [**Slack**](https://docs.5x.co/Settings/Alerts#slack) notification:
+
     - Integrate 5X with a Slack workspace.
     - Add required Slack channels.
     - Set up alert preferences for **Jobs** and **Ingestion**.
+
     <Frame>
       ![slack](https://docs.5x.co/assets/images/slack-198e0cddabdd21bd0cde1901f25e5499.gif)
     </Frame>
   </Step>
   <Step>
     Configure [**Email**](https://docs.5x.co/Settings/Alerts#email) notification:
-      - Add email recipients and configure their alert preferences for **Jobs** and **Ingestion**.
-      - Update and unsubscribe email notifications to manage alerts.
-      <Frame>
-        ![alert](https://docs.5x.co/assets/images/mail-5a76e641d50051bc3a1c4385391e5794.gif)
-      </Frame>
 
+    - Add email recipients and configure their alert preferences for **Jobs** and **Ingestion**.
+    - Update and unsubscribe email notifications to manage alerts.
+
+    <Frame>
+      ![alert](https://docs.5x.co/assets/images/mail-5a76e641d50051bc3a1c4385391e5794.gif)
+    </Frame>
     Recive email notification:
+
     <Frame>
       ![mail2](https://docs.5x.co/assets/images/mail3-84951fbbbfb0b2bee1e22e08df0b7119.png)
     </Frame>
@@ -47,7 +52,7 @@ Check out [Alerts](https://docs.5x.co/Settings/Alerts) to learn more.
 
 ## Enhancements
 
-### dbt model Lineage support[​](https://docs.5x.co/release_update/August24#dbt-model-lineage-support "Direct link to dbt model Lineage support")
+### dbt model Lineage support[​](https://docs.5x.co/release_update/August24#dbt-model-lineage-support)
 
 With this release, the **IDE** [Editor](https://docs.5x.co/IDE/ide-about#editor) supports **Lineage** for dbt projects. Lineage visualize dbt model connections and dependencies in the **5X** [IDE](https://docs.5x.co/Overview/features#ide) while developing. It provides a comprehensive overview of all your dbt moels, their depencies and data flows to
 [Admins](https://docs.5x.co/Team/RBAC.md#admin) and [developers](https://docs.5x.co/Team/RBAC.md#developer) can trace dashboard issues to their source models effortlessly to enhance data quality.
@@ -56,11 +61,11 @@ With this release, the **IDE** [Editor](https://docs.5x.co/IDE/ide-about#editor)
 
 1. Visual representation of table-level lineage dependencies between upstream and downstream dbt models using a DAG (data acyclic graph) based playground.
 2. Automated lineage update using **Sync**.
-3. Supports **search** function for a model, including complex searches (e.g., 2+model+2) to view the immediate dependencies
+3. Supports **search** function for a model, including complex searches (e.g., 2\+model\+2) to view the immediate dependencies
 4. View the full lineage graph, **zoom in/out** and **download** view in SVG.
 5. **Hide/show** parent and children nodes as you navigate through your model lineage.
 
-Navigate to [IDE](https://docs.5x.co/IDE/ide-about) > **Files** > [Github](https://docs.5x.co/IDE/dbt/Files%20%3E%20Github/github.md) to run a dbt model and view its Lineage from the output panel.
+Navigate to [IDE](https://docs.5x.co/IDE/ide-about) \> **Files** \> [Github](https://docs.5x.co/IDE/dbt/Files%20%3E%20Github/github.md) to run a dbt model and view its Lineage from the output panel.
 
 <Frame>
   ![lineage](https://docs.5x.co/assets/images/lineage1-1e2a7e179c01c73ec254a2752410a0b5.gif)
