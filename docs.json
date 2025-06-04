@@ -98,9 +98,9 @@
                   {
                     "group": "Embeddings",
                     "pages": [
-                      "embeddings/dashboard",
-                      "embeddings/preparation",
-                      "embeddings/deployment"
+                      "Business-Intelligence/embeddings/dashboard",
+                      "Business-Intelligence/embeddings/preparation",
+                      "Business-Intelligence/embeddings/deployment"
                     ]
                   },
                   "Business-Intelligence/charts",
