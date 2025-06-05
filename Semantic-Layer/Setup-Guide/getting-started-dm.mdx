@@ -29,13 +29,14 @@ We'll answer these business questions:
 
 In the Semantic Layer, cubes are used to organize entities and connections between entities. Usually one cube is created for each table in the database, such as users, orders, products, etc. In the sql_table parameter of the cube we define a base table for this cube. In our case, the base table is simply our users table.
 
-:::important
-Changes to semantic layer definitions can only be made while in Development Mode. Make sure you've enabled Dev Mode before attempting to create or modify cubes. Outside of Dev Mode, the semantic layer is read-only and can only be used for querying.
-:::
+<Warning>
+  Changes to semantic layer definitions can only be made while in Development Mode. Make sure you've enabled Dev Mode before attempting to create or modify cubes. Outside of Dev Mode, the semantic layer is read-only and can only be used for querying.
+</Warning>
 
-:::tip Development Mode
-Use Development Mode to safely test and modify your semantic layer definitions in an isolated environment before pushing to production. [Learn more about Development Mode](/Semantic-Layer/Setup-Guide/edit-mode.mdx)
-:::
+<Tip>
+  Edit Mode
+  Use Edit Mode to safely test and modify your semantic layer definitions in an isolated environment before pushing to production. [Learn more about Development Mode](/Semantic-Layer/Setup-Guide/edit-mode.mdx)
+</Tip>
 
 There are two ways to create a cube:
 
@@ -50,17 +51,17 @@ There are two ways to create a cube:
    - Define the cube structure manually as shown below
 
 <Tabs>
-  <Tab title="Tab">
+  <Tab title="Yaml">
     ```yaml
     cubes:
       - name: users
-        sql_table: users
+    sql_table: users
     ```
   </Tab>
-  <Tab title="Tab">
+  <Tab title="JavaScript">
     ```javascript
-    cube(`users`, {
-      sql_table: `users`,
+    cube("users", {
+      sql_table: "users",
     });
     ```
   </Tab>
@@ -77,7 +78,7 @@ Dimensions are referred to as categorical data, such as state, gender, product n
 Let's go ahead and create our first measure and two dimensions:
 
 <Tabs>
-  <Tab title="Tab">
+  <Tab title="Yaml">
     ```yaml
     cubes:
       - name: users
@@ -98,7 +99,7 @@ Let's go ahead and create our first measure and two dimensions:
             type: string
     ```
   </Tab>
-  <Tab title="Tab">
+  <Tab title="JavaScript">
     ```javascript
     cube(`users`, {
       sql_table: `users`,
@@ -129,7 +130,7 @@ Let's go ahead and create our first measure and two dimensions:
 Let's break down the above code snippet piece-by-piece. After defining the base table for the cube (with the sql_table property), we create a count measure in the measures block. The count type and sql id means that when this measure will be requested via an API, Cube will generate and execute the following SQL:
 
 <Tabs>
-  <Tab title="Tab">
+  <Tab title="SQL">
     ```sql
     SELECT COUNT(id) AS count
     FROM users;
@@ -140,7 +141,7 @@ Let's break down the above code snippet piece-by-piece. After defining the base 
 When we apply a city dimension to the measure to see "Where are users based?", Cube will generate SQL with a GROUP BY clause:
 
 <Tabs>
-  <Tab title="Tab">
+  <Tab title="SQL">
     ```sql
     SELECT city, COUNT(id) AS count
     FROM users
@@ -156,7 +157,7 @@ You can add as many dimensions as you want to your query when you perform groupi
 Now let's answer the next question – "How many paying users do we have?". To accomplish this, we will introduce measure filters:
 
 <Tabs>
-  <Tab title="Tab">
+  <Tab title="Yaml">
     ```yaml
     cubes:
       - name: users
@@ -175,7 +176,7 @@ Now let's answer the next question – "How many paying users do we have?". To a
         # ...
     ```
   </Tab>
-  <Tab title="Tab">
+  <Tab title="JavaScript">
     ```javascript
     cube(`users`, {
       measures: {
@@ -200,7 +201,7 @@ It is best practice to prefix references to table columns with the name of the c
 That's it\! Now we have the paying_count measure, which shows only our paying users. When this measure is requested, Cube will generate the following SQL:
 
 <Tabs>
-  <Tab title="Tab">
+  <Tab title="SQL">
     ```sql
     SELECT
       COUNT(
@@ -218,7 +219,7 @@ Since the filters property is an array, you can apply as many filters as require
 To determine "What is the percentage of paying users out of the total?", we need to compute the ratio of paying users, which can be expressed as paying_count divided by count. Cube simplifies this process by allowing us to define a calculated measure. Let's introduce a new measure to our cube called paying_percentage:
 
 <Tabs>
-  <Tab title="Tab">
+  <Tab title="Yaml">
     ```yaml
     cubes:
       - name: users
@@ -242,7 +243,7 @@ To determine "What is the percentage of paying users out of the total?", we need
         # ...
     ```
   </Tab>
-  <Tab title="Tab">
+  <Tab title="JavaScript">
     ```javascript
     cube(`users`, {
       measures: {
@@ -271,7 +272,7 @@ To determine "What is the percentage of paying users out of the total?", we need
 In this example, we have defined the calculated measure paying_percentage, which computes the ratio of paying_count to count. This demonstrates how measures can be referenced within other measure definitions. When the paying_percentage measure is requested through an API, Cube will generate the following SQL:
 
 <Tabs>
-  <Tab title="Tab">
+  <Tab title="SQL">
     ```sql
     SELECT
       100.0 * COUNT(
