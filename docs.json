@@ -23,7 +23,7 @@
     }
   },
   "appearance": {
-    "default": "dark"
+    "default": "light"
   },
   "navigation": {
     "tabs": [
