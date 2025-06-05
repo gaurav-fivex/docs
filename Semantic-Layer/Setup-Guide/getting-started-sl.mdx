@@ -5,119 +5,51 @@ description: ''
 
 ## Prerequisites
 
-<div className="prerequisites-container">
-  <div className="prerequisite-card warehouse">
-    <h3>🏢 Warehouse Connection</h3>
-    <div className="card-content">
-      <p>Configured connection to a supported data warehouse:</p>
-      <ul>
-        <li>Snowflake</li>
-        <li>BigQuery</li>
-        <li>Athena</li>
-        <li>Other supported warehouses</li>
-      </ul>
-    </div>
-  </div>
-
-  <div className="prerequisite-card access">
-    <h3>🔑 Access Privileges</h3>
-    <div className="card-content">
-      <p>One of the following roles with required permissions:</p>
-      <ul>
-        <li>Admin</li>
-        <li>Developer</li>
-        <li>
-          Custom role with permissions for:
-          <ul>
-            <li>App Connections setup</li>
-            <li>Semantic Layer configuration</li>
-          </ul>
-        </li>
-      </ul>
-    </div>
-  </div>
-
-  <div className="prerequisite-card understanding">
-    <h3>📊 Data Model Understanding</h3>
-    <div className="card-content">
-      <p>Basic knowledge of your:</p>
-      <ul>
-        <li>Data schema</li>
-        <li>Table relationships</li>
-        <li>Business metrics</li>
-      </ul>
-    </div>
-  </div>
-</div>
-
-<style>
-{`
-  .prerequisites-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 1.5rem;
-    margin: 2rem 0;
-  }
-
-  .prerequisite-card {
-    background: var(--ifm-background-surface-color);
-    border-radius: 8px;
-    padding: 1.5rem;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    transition: transform 0.2s ease;
-  }
-
-  .prerequisite-card:hover {
-    transform: translateY(-4px);
-  }
-
-  .prerequisite-card h3 {
-    margin-top: 0;
-    color: var(--ifm-color-primary);
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-
-  .card-content {
-    margin-top: 1rem;
-  }
-
-  .card-content ul {
-    margin-bottom: 0;
-    padding-left: 1.2rem;
-  }
-
-  .card-content ul ul {
-    margin-top: 0.5rem;
-  }
-`}
-</style>
+<CardGroup>
+  <Card title="Warehouse Connection" href="#" icon="warehouse" iconType="solid">
+    ### Configured connection to a supported data warehouse:
+    - Snowflake
+    - BigQuery
+    - Athena
+    - Other supported warehouses
+  </Card>
+  <Card title="Access Privileges" href="#" icon="key" iconType="solid"> 
+    - Admin
+    - Developer
+    - Custom role with permissions for:
+      - App Connections setup
+      - Semantic Layer configuration
+  </Card>
+  <Card title="Data Model Understanding" href="#" icon="chart-line" iconType="solid">
+    ### Basic knowledge of your:
+    - Data schema
+    - Table relationships
+    - Business metrics
+  </Card>
+</CardGroup>
 
 ## Setup Process
 
-<div className="setup-flow">
-  <div className="setup-step">
-    <h3>1. Connect Your Warehouse</h3>
-    <p>Configure your warehouse connection if not already done</p>
-    <a href="./connection-config" className="step-link">Configure Connection →</a>
-  </div>
 
-  <div className="setup-step">
-    <h3>2. Create a Project</h3>
-    <p>Set up your Semantic Layer project workspace</p>
-    <a href="./creating-project" className="step-link">Create Project →</a>
-  </div>
+<CardGroup>
+<Card title="1. Connect Your Warehouse" href="#" icon="warehouse" iconType="solid">
+Configure your warehouse connection if not already done
+[Configure Connection →](/Semantic-Layer/Setup-Guide/connection-config)
+</Card>
+
+<Card title="2. Create a Project" href="#" icon="folder-open" iconType="solid">
+Set up your Semantic Layer project workspace
+[Create Project →](/Semantic-Layer/Setup-Guide/creating-project)
+</Card>
+
+<Card title="3. Define Your Models" href="#" icon="code-branch" iconType="solid">
+Create your first data models
+[Start Modeling →](/Semantic-Layer/Setup-Guide/getting-started-dm)
+</Card>
+
+<Card title="4. Explore in Playground" href="#" icon="database" iconType="solid">
+Query and analyze your semantic models
+[Open Playground →](/Semantic-Layer/Setup-Guide/query-playground)
+</Card>
   
-  <div className="setup-step">
-    <h3>3. Define Your Models</h3>
-    <p>Create your first data models</p>
-    <a href="./data-modeling" className="step-link">Start Modeling →</a>
-  </div>
-  
-  <div className="setup-step">
-    <h3>4. Explore in Playground</h3>
-    <p>Query and analyze your semantic models</p>
-    <a href="./playground" className="step-link">Open Playground →</a>
-  </div>
-</div>
+</CardGroup>
